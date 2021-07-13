@@ -1,0 +1,96 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/entrance/entrance"
+		},
+		{
+			"path": "pages/guard/guard"
+		},
+		{
+			"path": "pages/profile/profile"
+		},
+		{
+			"path": "pages/agreement/agreement"
+		}, {
+			"path": "pages/search/search"
+		}, {
+			"path": "pages/assistant/assistant"
+		}, {
+			"path": "pages/common-user/common-user"
+		}, {
+			"path": "pages/checkcode-result/checkcode-result"
+		},
+		{
+			"path": "pages/detail/detail"
+		}, {
+			"path": "pages/check-face/check-face"
+		}, {
+			"path": "pages/subscribe/subscribe"
+		}, {
+			"path": "pages/real-estate/real-estate"
+		}, {
+			"path": "pages/comein-noregister/comein-noregister"
+		}, {
+			"path": "pages/audit/audit"
+		}, {
+			"path": "pages/share-success/share-success"
+		}, {
+			"path": "pages/company-register/company-register"
+		}, {
+			"path": "pages/register-info/register-info"
+		}, {
+			"path": "pages/my-car/my-car"
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "云易访",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"usingComponents": {
+			"van-button": "/wxcomponents/vant/button/index",
+			"van-notice-bar": "/wxcomponents/vant/notice-bar/index",
+			"van-field": "/wxcomponents/vant/field/index",
+			"van-cell": "/wxcomponents/vant/cell/index",
+			"van-cell-group": "/wxcomponents/vant/cell-group/index",
+			"van-icon": "/wxcomponents/vant/icon/index",
+			"van-picker": "/wxcomponents/vant/picker/index",
+			"van-popup": "/wxcomponents/vant/popup/index",
+			"van-uploader": "/wxcomponents/vant/uploader/index",
+			"van-datetime-picker": "/wxcomponents/vant/datetime-picker/index",
+			"van-empty": "/wxcomponents/vant/empty/index",
+			"van-transition": "/wxcomponents/vant/transition/index",
+			"van-overlay": "/wxcomponents/vant/overlay/index"
+		}
+	},
+	"condition": {
+		"current": 0,
+		"list": [{
+				"path": "/pages/entrance/entrance",
+				"name": "entrance"
+			},
+			{
+				"path": "/pages/profile/profile",
+				"name": "profile"
+			},
+			{
+				"path": "/pages/subscribe/subscribe",
+				"name": "subscribe",
+				"query": "roleType=guard"
+			}, {
+				"path": "/pages/guard/guard",
+				"name": "guard"
+			}, {
+				"path": "/pages/my-car/my-car",
+				"name": "myCar"
+			}
+		]
+	},
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+			"^uni-(.*)": "@/components/uni-$1.vue", // 匹配components目录内的vue文件
+			"^vue-file-(.*)": "packageName/path/to/vue-file-$1.vue" // 匹配node_modules内的vue文件
+		}
+	}
+}
