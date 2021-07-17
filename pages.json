@@ -1,6 +1,12 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/common-user/common-user"
+		},
+		{
+			"path": "pages/index/index"
+		},
+		{
 			"path": "pages/entrance/entrance"
 		},
 		{
@@ -15,8 +21,6 @@
 			"path": "pages/search/search"
 		}, {
 			"path": "pages/assistant/assistant"
-		}, {
-			"path": "pages/common-user/common-user"
 		}, {
 			"path": "pages/checkcode-result/checkcode-result"
 		},

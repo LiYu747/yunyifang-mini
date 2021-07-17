@@ -1,4 +1,4 @@
-const baseUrl = 'dadaddsadadasd';
+const baseUrl = 'http://192.168.0.105:8765';
 export default function request(url,data,method='GET'){
 	return new Promise((reslove,reject) => {
 		uni.request({

@@ -33,7 +33,7 @@ http.interceptors.response.use(response => {
 			storage.setCookie(header['set-cookie']);
 		}
 		if (data && typeof data === "object") {
-			if (data.code === 200) {
+			if (data.statusCode === 200) {
 				return Promise.resolve(data.data);
 			} else {
 				uni.showToast({
@@ -51,7 +51,7 @@ http.interceptors.response.use(response => {
 		if (error.config.custom.loading) {
 			uni.hideLoading();
 		}
-		if (error.code === "ECONNABORTED") {
+		if (error.statusCode === "ECONNABORTED") {
 			uni.showToast({
 				title: "请求超时,请检查网络",
 			});

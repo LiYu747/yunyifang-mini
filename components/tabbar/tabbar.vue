@@ -2,18 +2,8 @@
 <template>
 	<view class="tabbar">
 		<view class="tabbar-item" v-for="(item,index) in items" :key="index" @click="itemClick(index)">
-			<image 
-				class="tabbar-img" 
-				:src="item.deactiveImg" 
-				mode="aspectFit" 
-				v-show="!(index === currentIndex)"
-			/>
-			<image 
-				class="tabbar-img" 
-				:src="item.activeImg" 
-				mode="aspectFit" 
-				v-show="index === currentIndex"
-			/>
+			<image class="tabbar-img" :style="currentIndex == 1 ? 'width:80rpx;' : ''" :src="item.deactiveImg" mode="aspectFit" v-show="!(index === currentIndex)" />
+			<image class="tabbar-img" :style="currentIndex == 1 ? 'width:80rpx;' : ''" :src="item.activeImg" mode="aspectFit" v-show="index === currentIndex" />
 			<view :class="index === currentIndex ? 'active' : ''">{{item.text}}</view>
 		</view>
 	</view>
@@ -29,16 +19,15 @@
 		props: {
 			items: {
 				type: Array,
-				default: [
-					{
+				default: [{
 						deactiveImg: require('../../static/img/tabbar/bf1.png'),
 						activeImg: require('../../static/img/tabbar/bf2.png'),
-						text: '我的拜访'
+						text: '拜访列表'
 					},
 					{
 						deactiveImg: require('../../static/img/tabbar/jd1.png'),
 						activeImg: require('../../static/img/tabbar/jd2.png'),
-						text: '我的访客'
+						text: '扫一扫'
 					},
 					{
 						deactiveImg: require('../../static/img/tabbar/profile1.png'),
@@ -48,40 +37,41 @@
 				]
 			}
 		},
-		methods:{
+		methods: {
 			itemClick(index) {
 				this.currentIndex = index;
-				// if(index === this.items.length - 1){
-				// 	uni.reLaunch({
-				// 		url: "/pages/profile/profile"
-				// 	})
-				// }
-				this.$emit('sendIndex',index)
+				this.$emit('sendIndex', index)
 			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	.tabbar{
+	.tabbar {
+		position: fixed;
+		bottom: 0px;
+		z-index: 9999;
 		width: 100%;
 		box-sizing: border-box;
 		box-shadow: $boxshadow;
 		height: 100rpx;
 		display: flex;
 		align-items: center;
-		.tabbar-item{
+
+		.tabbar-item {
 			flex: 1;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			font-size: 24rpx;
 			color: #333;
-			.tabbar-img{
+
+			.tabbar-img {
 				width: 50rpx;
 				height: 50rpx;
 			}
-			.active{
+
+			.active {
 				color: $bgcolor;
 			}
 		}
