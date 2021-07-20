@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "fake-search": "/components/fake-search/fake-search",
+    "user-greetings": "/components/userGreetings/userGreetings",
+    "visit-msg": "/components/visitMsg/visitMsg"
+  },
+  "component": true
+}

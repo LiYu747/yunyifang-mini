@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "visit-msg": "/components/visitMsg/visitMsg"
+  },
+  "component": true
+}

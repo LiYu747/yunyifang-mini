@@ -2,7 +2,7 @@
 <template>
 	<view class="common-user">
 		<view class="content">
-			<my-visit v-if="currentIndex === 0" />
+			<my-visit :msg="msg" :historyVist="historyVist"  v-if="currentIndex === 0" />
 			<!-- <visit-me v-show="currentIndex === 1"/> -->
 			<user-info v-if="currentIndex ==2" />
 		</view>
@@ -14,7 +14,55 @@
 	export default {
 		data() {
 			return {
-				currentIndex: 0
+				currentIndex: 0,
+				msg: [{
+						id: '001',
+						company: '深圳腾讯计算有限公司',
+						boss: '马化腾',
+						visitTime: '2021-5-14 10:20-11:00',
+						visitState: '待通过',
+						jurisdiction:0,
+					},
+					{
+						id: '002',
+						company: '百度计算系统有限公司',
+						boss: '李彦宏',
+						visitTime: '2021-5-14 10:20-11:00',
+						visitState: '待通过'
+					},
+					{
+						id: '003',
+						company: '宇宙地球修理公司',
+						boss: '李云龙',
+						visitTime: '2021-5-14 10:20-11:00',
+						visitState: '待通过'
+					}
+				],
+				historyVist: [{
+						id: '001',
+						company: '深圳腾讯计算有限公司',
+						boss: '马化腾',
+						visitTime: '2021-5-14 10:20-11:00',
+						visitState: '已完成',
+						jurisdiction:1,
+					},
+					{
+						id: '002',
+						company: '百度计算系统有限公司',
+						boss: '李彦宏',
+						visitTime: '2021-5-14 10:20-11:00',
+						visitState: '已完成',
+						jurisdiction:1,
+					},
+					{
+						id: '003',
+						company: '宇宙地球修理公司',
+						boss: '李云龙',
+						visitTime: '2021-5-14 10:20-11:00',
+						visitState: '已终止',
+						jurisdiction:0,
+					}
+				]
 			}
 		},
 		onLoad() {
@@ -57,7 +105,7 @@
 		height: 100vh;
 
 		.content {
-			height: calc(100% - 100rpx);
+			margin-bottom: 100rpx;
 		}
 	}
 </style>

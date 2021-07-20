@@ -81,7 +81,6 @@
 					let profile = await this.getUserProfile()
 					console.log(profile, "-----");
 					this.userInfo = profile.userInfo
-
 					this.$api.addThird({
 						openId: _this.openId,
 						gender: profile.userInfo.gender,
@@ -91,7 +90,7 @@
 						country: profile.userInfo.country,
 						province: profile.userInfo.province
 					}).then(res => {
-						console.log(res)
+						console.log("msg",res)
 						if(res.statusCode==200){
 							uni.navigateTo({
 								url:"/pages/index/index"

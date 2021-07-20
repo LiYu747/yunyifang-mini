@@ -1,0 +1,1 @@
+<view class="fake-search data-v-582cfe74"><view data-event-opts="{{[['tap',[['toSearch',['$event']]]]]}}" class="content data-v-582cfe74" bindtap="__e"><text class="data-v-582cfe74">请输入关键字</text></view></view>

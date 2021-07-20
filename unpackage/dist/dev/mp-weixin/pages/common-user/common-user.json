@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "my-visit": "/components/my-visit/my-visit",
+    "user-info": "/components/user-info/user-info",
+    "tabbar": "/components/tabbar/tabbar"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "user-greetings": "/components/userGreetings/userGreetings",
+    "visit-msg": "/components/visitMsg/visitMsg"
+  },
+  "component": true
+}

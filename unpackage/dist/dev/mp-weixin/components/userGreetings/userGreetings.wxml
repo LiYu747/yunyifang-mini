@@ -1,0 +1,1 @@
+<view class="user-greetings data-v-27af3e24"><view class="username data-v-27af3e24">李云龙先生您好！</view><view class="time-weather data-v-27af3e24"><view class="time data-v-27af3e24">{{"今天是"+today+"日"}}</view><view class="weather data-v-27af3e24"><text class="data-v-27af3e24">天气：晴</text><text class="data-v-27af3e24">温度：18-24摄氏度</text></view></view></view>

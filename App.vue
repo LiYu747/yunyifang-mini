@@ -26,4 +26,5 @@
 	@import "/wxcomponents/vant/common/index.wxss";
 	@import url("/static/scss/iconfont.css");
 	@import url("/static/scss/base.css");
+	@import url("/style/common.css");  
 </style>

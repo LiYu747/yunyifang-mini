@@ -1,8 +1,58 @@
 <!-- 主页 -->
 <template>
-	<view class="index">
-		<visitMsg title="今日待访记录" :msg="wxvisitList.myVisit" type=1></visitMsg>
-		<visitMsg title="今日来访记录" :msg="wxvisitList.myVisited" type=2></visitMsg>
+	<view class="page">
+		<view class="swiper">
+			<swiper class="" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval"
+				:duration="duration">
+				<swiper-item>
+					<view class="swiper-item uni-bg-red">
+						<image :src="require('../../image/lunbotu.png')" class="itemImg" mode=""></image>
+					</view>
+				</swiper-item>
+			</swiper>
+		</view> 
+		<view class="notice">
+			李云龙先生：您好，今天是2021-05-21日   天气：晴  气温：18-24摄氏度
+		</view>
+		<view class="Statistics">
+			<view class="visitorNum">
+				<view class="fz-30">
+					3
+				</view>
+				<view class="fz-14">
+					今日访客
+				</view>
+			</view>
+			<view class="ReceptionNum">
+				<view class="fz-30">
+					22
+				</view>
+				<view class="fz-14">
+					本周接待人数
+				</view>
+			</view>
+			<view class="visitNum">
+				<view class="fz-30">
+					6
+				</view>
+				<view class="fz-14">
+					本周拜访人数
+				</view>
+			</view>
+		</view>
+		<visitMsg title="我的今日访客"  :msg="msg"  type=1></visitMsg>
+		<visitMsg title="我的历史访客" :msg="historyVist" type=2></visitMsg> 
+		<view class="slogan flex flex-d al-center">
+			<view class="">
+				www.wearecaller.com
+			</view>
+			<view class="m-t1 m-b1">
+			访云©四川利菲普斯科技有限公司
+			</view>
+			<view class="">
+				©2021-2025 By Sichuan liephipps Technologies Co.，Ltd
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -10,9 +60,17 @@
 	export default {
 		props: {
 			userInfo: null,
-			wxvisitList: [],
-			currentIndex: 0
+			currentIndex: 0,
+			msg:{
+				type: Array,
+				default:true
+			},
+			historyVist:{
+				type:Array,
+				default:true
+			}
 		},
+		
 		onShow() {
 			console.log("进入")
 			this.login()
@@ -116,7 +174,7 @@
 				console.log("調用----", this.userInfo)
 				this.$api.wxvisitTobe(this.userInfo.id).then(res => {
 					console.log(res)
-					this.wxvisitList = res;
+					// this.wxvisitList = res;
 				})
 			}
 
@@ -125,6 +183,15 @@
 </script>
 
 <style lang="scss" scoped>
+	.fz-30{
+		font-size: 60rpx;
+	}
+	.fz-14{
+		font-size: 24rpx;
+	}
+	.page{
+		background: #F5F5F5;
+	}
 	.index {
 		.swiper {
 			image {
@@ -151,5 +218,67 @@
 
 			margin-bottom: 40rpx;
 		}
+	}
+	.itemImg{
+		width: 100%;
+		height: 300rpx;
+	}
+	
+	.notice{
+		width: 720rpx;
+		height: 60rpx;
+		font-size: 24rpx;
+		color: #333;
+		overflow: hidden;
+		white-space: nowrap;
+		padding-left: 30rpx;
+		display: flex;
+		align-items: center;
+	}
+	
+	.Statistics{
+		width: 690rpx;
+		padding: 40rpx 30rpx;
+		background: #fff;
+		display: flex;
+		justify-content: space-between;
+		.visitorNum{
+			width: 190rpx;
+			height: 150rpx;
+			background: linear-gradient(#FFCEA7, #FCAA87);
+			border-radius: 10rpx;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			color: #fff;
+		}
+		.ReceptionNum{
+			width: 190rpx;
+			height: 150rpx;
+			background: linear-gradient(#D0D7EE,#9EA6E9);
+			border-radius: 10rpx;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			color: #fff;
+		}
+		.visitNum{
+			width: 190rpx;
+			height: 150rpx;
+			background: linear-gradient(#FFF8A9,#FFC15B);
+			border-radius: 10rpx;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			color: #fff;
+		}
+	}
+	.slogan{
+		padding: 30rpx 0;;
+		font-size: 24rpx;
+		color: #333;
 	}
 </style>

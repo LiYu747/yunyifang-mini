@@ -1,0 +1,86 @@
+{
+  "description": "项目配置文件。",
+  "packOptions": {
+    "ignore": []
+  },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "preloadBackgroundData": false,
+    "minified": true,
+    "newFeature": false,
+    "coverView": true,
+    "nodeModules": false,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": true,
+    "scopeDataCheck": false,
+    "uglifyFileName": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "compileHotReLoad": false,
+    "lazyloadPlaceholderEnable": false,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    },
+    "enableEngineNative": false,
+    "useIsolateContext": true,
+    "userConfirmedBundleSwitch": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "showES6CompileOption": false
+  },
+  "compileType": "miniprogram",
+  "libVersion": "",
+  "appid": "wx0fe051b5f96d9d38",
+  "projectname": "haohao",
+  "condition": {
+    "search": {
+      "list": []
+    },
+    "conversation": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "entrance",
+          "id": 0,
+          "pathName": "/pages/entrance/entrance"
+        },
+        {
+          "name": "profile",
+          "id": 1,
+          "pathName": "/pages/profile/profile"
+        },
+        {
+          "name": "subscribe",
+          "query": "roleType=guard",
+          "id": 2,
+          "pathName": "/pages/subscribe/subscribe"
+        },
+        {
+          "name": "guard",
+          "id": 3,
+          "pathName": "/pages/guard/guard"
+        },
+        {
+          "name": "myCar",
+          "id": 4,
+          "pathName": "/pages/my-car/my-car"
+        }
+      ]
+    }
+  }
+}

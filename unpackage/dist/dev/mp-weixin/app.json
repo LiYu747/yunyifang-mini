@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/common-user/common-user",
+    "pages/index/index",
+    "pages/entrance/entrance",
+    "pages/guard/guard",
+    "pages/profile/profile",
+    "pages/agreement/agreement",
+    "pages/search/search",
+    "pages/assistant/assistant",
+    "pages/checkcode-result/checkcode-result",
+    "pages/detail/detail",
+    "pages/check-face/check-face",
+    "pages/subscribe/subscribe",
+    "pages/real-estate/real-estate",
+    "pages/comein-noregister/comein-noregister",
+    "pages/audit/audit",
+    "pages/share-success/share-success",
+    "pages/company-register/company-register",
+    "pages/register-info/register-info",
+    "pages/my-car/my-car"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "云易访",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+    
+  },
+  "usingComponents": {
+    "van-button": "/wxcomponents/vant/button/index",
+    "van-notice-bar": "/wxcomponents/vant/notice-bar/index",
+    "van-field": "/wxcomponents/vant/field/index",
+    "van-cell": "/wxcomponents/vant/cell/index",
+    "van-cell-group": "/wxcomponents/vant/cell-group/index",
+    "van-icon": "/wxcomponents/vant/icon/index",
+    "van-picker": "/wxcomponents/vant/picker/index",
+    "van-popup": "/wxcomponents/vant/popup/index",
+    "van-uploader": "/wxcomponents/vant/uploader/index",
+    "van-datetime-picker": "/wxcomponents/vant/datetime-picker/index",
+    "van-empty": "/wxcomponents/vant/empty/index",
+    "van-transition": "/wxcomponents/vant/transition/index",
+    "van-overlay": "/wxcomponents/vant/overlay/index"
+  },
+  "sitemapLocation": "sitemap.json"
+}

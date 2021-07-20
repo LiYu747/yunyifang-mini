@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "vcode-input": "/components/vcode-input/vcode-input"
+  }
+}

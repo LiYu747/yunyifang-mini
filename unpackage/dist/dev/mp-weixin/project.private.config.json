@@ -1,0 +1,60 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "id": 0,
+          "name": "entrance",
+          "pathName": "/pages/entrance/entrance",
+          "query": ""
+        },
+        {
+          "id": 1,
+          "name": "profile",
+          "pathName": "/pages/profile/profile",
+          "query": ""
+        },
+        {
+          "id": 2,
+          "name": "subscribe",
+          "pathName": "/pages/subscribe/subscribe",
+          "query": "roleType=guard"
+        },
+        {
+          "id": 3,
+          "name": "guard",
+          "pathName": "/pages/guard/guard",
+          "query": ""
+        },
+        {
+          "id": 4,
+          "name": "myCar",
+          "pathName": "/pages/my-car/my-car",
+          "query": ""
+        },
+        {
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/common-user/common-user",
+          "pathName": "pages/common-user/common-user",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

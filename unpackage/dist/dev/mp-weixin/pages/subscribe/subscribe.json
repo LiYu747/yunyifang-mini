@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "time-selector": "/components/xiujun-time-selector/index"
+  }
+}

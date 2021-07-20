@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "car-number": "/components/car-number/car-number"
+  }
+}

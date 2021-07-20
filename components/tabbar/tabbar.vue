@@ -1,12 +1,12 @@
 <!-- tabbar底部导航栏 -->
 <template>
-	<view class="tabbar">
-		<view class="tabbar-item" v-for="(item,index) in items" :key="index" @click="itemClick(index)">
-			<image class="tabbar-img" :style="currentIndex == 1 ? 'width:80rpx;' : ''" :src="item.deactiveImg" mode="aspectFit" v-show="!(index === currentIndex)" />
-			<image class="tabbar-img" :style="currentIndex == 1 ? 'width:80rpx;' : ''" :src="item.activeImg" mode="aspectFit" v-show="index === currentIndex" />
-			<view :class="index === currentIndex ? 'active' : ''">{{item.text}}</view>
+		<view class="tabbar">
+			<view class="tabbar-item" v-for="(item,index) in items" :key="index" @click="itemClick(index)">
+				<image class="tabbar-img" :style="currentIndex == 1 ? 'width:80rpx;' : ''" :src="item.deactiveImg" mode="aspectFit" v-show="!(index === currentIndex)" />
+				<image class="tabbar-img" :style="currentIndex == 1 ? 'width:80rpx;' : ''" :src="item.activeImg" mode="aspectFit" v-show="index === currentIndex" />
+				<view :class="index === currentIndex ? 'active' : ''">{{item.text}}</view>
+			</view>
 		</view>
-	</view>
 </template>
 
 <script>
@@ -57,6 +57,7 @@
 		height: 100rpx;
 		display: flex;
 		align-items: center;
+		background: #fff;
 
 		.tabbar-item {
 			flex: 1;
