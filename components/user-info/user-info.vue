@@ -5,13 +5,13 @@
 			<view class="head-top"></view>
 			<view class="head-bottom"></view>
 			<view class="head-content">
-				<image class="img" src="../../static/4.png" mode="aspectFit"></image>
+				<image class="img" :src="arr.headPic" mode="aspectFit"></image>
 				<view class="name">
-					<text style="margin-right: 10rpx;font-weight: bold;">张三</text>
-					<text style="color: #7B68EE;" class="iconfont icon-xingbienan"></text>
+					<text style="margin-right: 10rpx;font-weight: bold;">{{arr.nickName}}</text>
+					<text :class="arr.gender === 1 ? 'dv':'gril'" class="iconfont icon-xingbienan"></text>
 				</view>
-				<view class="company">成都利菲普斯科技有限公司</view>
-				<view class="job">总经理秘书</view>
+				<!-- <view class="company">{{arr}}</view>
+				<view class="job">总经理秘书</view> -->
 			</view>
 		</view>
 		<view class="content">
@@ -22,21 +22,21 @@
 				</view>
 				<text class="right iconfont icon-zuojiantou"></text>
 			</view>
-			<view class="row" @click="toCheckFace">
+	<!-- 		<view class="row" @click="toCheckFace">
 				<view class="left">
 					<text class="iconfont icon-zaixianduibijihuo"></text>
 					<text class="desc">人证对比</text>
 					<text class="pass" style="color: #DC143C;font-size: 24rpx;">未通过</text>
 				</view>
 				<text class="right iconfont icon-zuojiantou"></text>
-			</view>
-			<view class="row" @click="toMyCar">
+			</view> -->
+	<!-- 		<view class="row" @click="toMyCar">
 				<view class="left">
 					<text class="iconfont icon-cheliang"></text>
 					<text class="desc">我的车辆</text>
 				</view>
 				<text class="right iconfont icon-zuojiantou"></text>
-			</view>
+			</view> -->
 			<view class="row" @click="toSubscribe">
 				<view class="left">
 					<text class="iconfont icon-4-141"></text>
@@ -50,11 +50,17 @@
 
 <script>
 	export default {
+		props: {
+			arr:{
+				type: Object,
+				required: true
+			}
+		},
 		methods: {
 			// 点击基础信息跳转个人信息维护页面
 			toProfile() {
 				uni.navigateTo({
-					url: '/pages/profile/profile'
+					url: '/pages/profile/profile?id=' + this.arr.id 
 				})
 			},
 			// 点击我的云访跳转预约界面
@@ -153,5 +159,11 @@
 				}
 			}
 		}
+	}
+	.dv{
+	color: #66ccff;	
+	}
+	.gril{
+		color: #ff66ff;
 	}
 </style>

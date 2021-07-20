@@ -99,10 +99,10 @@ try {
       return Promise.all(/*! import() | components/my-visit/my-visit */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/my-visit/my-visit")]).then(__webpack_require__.bind(null, /*! @/components/my-visit/my-visit.vue */ 192))
     },
     userInfo: function() {
-      return __webpack_require__.e(/*! import() | components/user-info/user-info */ "components/user-info/user-info").then(__webpack_require__.bind(null, /*! @/components/user-info/user-info.vue */ 200))
+      return __webpack_require__.e(/*! import() | components/user-info/user-info */ "components/user-info/user-info").then(__webpack_require__.bind(null, /*! @/components/user-info/user-info.vue */ 201))
     },
     tabbar: function() {
-      return Promise.all(/*! import() | components/tabbar/tabbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/tabbar/tabbar")]).then(__webpack_require__.bind(null, /*! @/components/tabbar/tabbar.vue */ 207))
+      return Promise.all(/*! import() | components/tabbar/tabbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/tabbar/tabbar")]).then(__webpack_require__.bind(null, /*! @/components/tabbar/tabbar.vue */ 208))
     }
   }
 } catch (e) {
@@ -159,74 +159,174 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 42));
+
+
+
+
+
+
+
+
+
+
+
+
+var _constant = __webpack_require__(/*! @/utils/constant */ 27);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 {
   data: function data() {
     return {
       currentIndex: 0,
-      msg: [{
-        id: '001',
-        company: '深圳腾讯计算有限公司',
-        boss: '马化腾',
-        visitTime: '2021-5-14 10:20-11:00',
-        visitState: '待通过',
-        jurisdiction: 0 },
-
-      {
-        id: '002',
-        company: '百度计算系统有限公司',
-        boss: '李彦宏',
-        visitTime: '2021-5-14 10:20-11:00',
-        visitState: '待通过' },
-
-      {
-        id: '003',
-        company: '宇宙地球修理公司',
-        boss: '李云龙',
-        visitTime: '2021-5-14 10:20-11:00',
-        visitState: '待通过' }],
-
-
-      historyVist: [{
-        id: '001',
-        company: '深圳腾讯计算有限公司',
-        boss: '马化腾',
-        visitTime: '2021-5-14 10:20-11:00',
-        visitState: '已完成',
-        jurisdiction: 1 },
-
-      {
-        id: '002',
-        company: '百度计算系统有限公司',
-        boss: '李彦宏',
-        visitTime: '2021-5-14 10:20-11:00',
-        visitState: '已完成',
-        jurisdiction: 1 },
-
-      {
-        id: '003',
-        company: '宇宙地球修理公司',
-        boss: '李云龙',
-        visitTime: '2021-5-14 10:20-11:00',
-        visitState: '已终止',
-        jurisdiction: 0 }] };
-
-
+      arr: {
+        dater: 0,
+        userInfo: null,
+        myVisit: [],
+        myVisited: [] } };
 
   },
+
+  methods: {
+    //获取今天时间
+    getdate: function getdate() {
+      var nowDate = new Date();
+      var date = {
+        year: nowDate.getFullYear(),
+        month: nowDate.getMonth() + 1,
+        date: nowDate.getDate() };
+
+      if (date.month < 10) {
+        date.month = "0" + date.month;
+      }
+      this.arr.dater = date.year + '年' + date.month + '月' + date.date + '日';
+    },
+    login: function login() {
+      var _this = this,
+      code = null;
+      uni.login().then(function (res) {
+        res.forEach(function (item) {
+          if (item && item.code) {
+            code = item.code;
+            _this.getUserInfo(code);
+          }
+        });
+
+      });
+    },
+    getUserInfo: function getUserInfo(code) {var _this2 = this;
+      var _this = this;
+      this.$api.getUserInfos(code).then(function (res) {
+        _this.openId = res.data.openId;
+        if (!res.data.id) {
+          _this2.bindGetUserInfo();
+        } else {
+          _this2.arr.userInfo = res.data;
+          _this2.getWxVisit();
+        }
+      });
+    },
+    // 授权登录
+    bindGetUserInfo: function bindGetUserInfo() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var _this, profile, loginCode, code;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                _this = _this3;_context.prev = 1;_context.next = 4;return (
+
+
+                  _this3.getUserProfile());case 4:profile = _context.sent;
+                _this3.$api.addThird({
+                  openId: _this.openId,
+                  gender: profile.userInfo.gender,
+                  nickName: profile.userInfo.nickName,
+                  headPic: profile.userInfo.avatarUrl,
+                  city: profile.userInfo.city,
+                  country: profile.userInfo.country,
+                  province: profile.userInfo.province,
+                  thirdType: 1 }).
+                then(function (res) {
+                  if (res.statusCode != 200) {
+                    uni.showModal({
+                      title: res.error });
+
+                  } else {
+                    console.log(res, "----");
+                    _this.arr.userInfo = res.data;
+                  }
+                });
+                // 授权后登录获取code
+                _context.next = 8;return _this3.getCode();case 8:loginCode = _context.sent;
+                code = loginCode.code;
+                // 发起请求上传code和userInfo到后台获取token
+                // this.getToken(code,this.userInfo)
+                // uni.navigateTo({
+                // 	url: '/pages/common-user/common-user'
+                // })
+                _context.next = 15;break;case 12:_context.prev = 12;_context.t0 = _context["catch"](1);
+                console.log(_context.t0);case 15:case "end":return _context.stop();}}}, _callee, null, [[1, 12]]);}))();
+
+    },
+    // 授权用户信息方法
+    getUserProfile: function getUserProfile() {
+      var that = this;
+      return new Promise(function (reslove, reject) {
+        uni.getUserProfile({
+          desc: '登录',
+          success: function success(res) {
+            reslove(res);
+          },
+          fail: function fail(err) {
+            reject(err);
+          } });
+
+      });
+    },
+    // 登录获取code
+    getCode: function getCode() {
+      var that = this;
+      return new Promise(function (reslove, reject) {
+        uni.login({
+          provider: 'weixin',
+          success: function success(res) {
+            reslove(res);
+          },
+          fail: function fail(err) {
+            reject(err);
+          } });
+
+      });
+    },
+    //用户拜访来访信息
+    getWxVisit: function getWxVisit() {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
+                  _this4.$api.wxvisitTobe(_this4.arr.userInfo.id));case 2:res = _context2.sent;
+                console.log(res, '信息');
+                res.data.myVisit.map(function (item) {
+                  item.intervieweeStatus = _constant.INTERVIEWEE_STATUS[item.intervieweeStatus];
+                  item.intervieweeStartTime = item.intervieweeStartTime.slice(0, 16);
+                  item.intervieweeEndTime = item.intervieweeEndTime.slice(11, 16);
+                  item.visitTime = item.intervieweeStartTime + ' - ' + item.intervieweeEndTime;
+                });
+                res.data.myVisited.map(function (item) {
+                  item.intervieweeStatus = _constant.INTERVIEWEE_STATUS[item.intervieweeStatus];
+                  item.intervieweeStartTime = item.intervieweeStartTime.slice(0, 16);
+                  item.intervieweeEndTime = item.intervieweeEndTime.slice(11, 16);
+                  item.visitTime = item.intervieweeStartTime + ' - ' + item.intervieweeEndTime;
+                });
+                _this4.arr.myVisit = res.data.myVisit;
+                _this4.arr.myVisited = res.data.myVisited;
+                console.log(_this4.arr);case 9:case "end":return _context2.stop();}}}, _callee2);}))();
+    },
+
+    sendIndex: function sendIndex(index) {
+      console.log(index);
+      if (index == 1) {
+        uni.scanCode({
+          success: function success(res) {
+            console.log('条码类型：' + res.scanType);
+            console.log('条码内容：' + res.result);
+          } });
+
+      }
+      this.currentIndex = index;
+    } },
+
   onLoad: function onLoad() {
+    this.login();
     // 判断第一次登录进入时候有没有填写信息
     // uni.getStorage({
     // 	key: 'userInfo',
@@ -244,19 +344,11 @@ var _default =
     // 	}
     // })
   },
-  methods: {
-    sendIndex: function sendIndex(index) {
-      console.log(index);
-      if (index == 1) {
-        uni.scanCode({
-          success: function success(res) {
-            console.log('条码类型：' + res.scanType);
-            console.log('条码内容：' + res.result);
-          } });
-
-      }
-      this.currentIndex = index;
-    } } };exports.default = _default;
+  onShow: function onShow() {
+    this.getdate();
+    if (!this.arr.userInfo) return;
+    this.getWxVisit();
+  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

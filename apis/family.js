@@ -13,9 +13,15 @@ export const getOpen = function(code) {
 export const getUserInfo = function(openid) {
 	return axios.get(`/api/wx/third/detail/?openid=${openid}`)
 }
-// 分页获取用户被拜访记录
+
+//获取用户基本信息
+export const getinfo = function (tid) {
+	return axios.get(`/api/wx/wxuser/detailByTid/${tid}`) 
+	 
+}
+// 分页获取用户被拜访记录、来访记录
 export const getWxVisit = function(obj) {
-	return axios.get(`/api/wx/wxvisit/page`, obj)
+	return axios.get(`/api/wx/wxvisit/tobe`, obj)
 }
 // 修改用户信息
 export const setUser=function(user) {
@@ -38,12 +44,15 @@ export const addThird = function(obj){
 	return axios.post(`/api/wx/third`,obj)
 } 
 // 獲取拜訪列表
-export const wxvisitTobe=function(id){
+export const wxvisitTobe = function(id) {
 	return axios.get(`/api/wx/wxvisit/tobe/${id}`)
 }
 // 查询拜访记录详情
-export const wxvisitDetail=function(id){
+export const wxvisitDetail = function(id){
 	return axios.get(`/api/wx/wxvisit/${id}`)
 }
-
+//操作来访
+export const operation = function(id, data){
+	return axios.put(`/api/wx/wxvisit/${id}`, data)
+}
 // .}

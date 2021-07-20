@@ -96,7 +96,7 @@ var components
 try {
   components = {
     itemDesc: function() {
-      return __webpack_require__.e(/*! import() | components/itemDesc/itemDesc */ "components/itemDesc/itemDesc").then(__webpack_require__.bind(null, /*! @/components/itemDesc/itemDesc.vue */ 221))
+      return __webpack_require__.e(/*! import() | components/itemDesc/itemDesc */ "components/itemDesc/itemDesc").then(__webpack_require__.bind(null, /*! @/components/itemDesc/itemDesc.vue */ 222))
     }
   }
 } catch (e) {

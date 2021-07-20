@@ -26,7 +26,6 @@
     "navigationBarTitleText": "云易访",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
-    
   },
   "usingComponents": {
     "van-button": "/wxcomponents/vant/button/index",
@@ -41,7 +40,8 @@
     "van-datetime-picker": "/wxcomponents/vant/datetime-picker/index",
     "van-empty": "/wxcomponents/vant/empty/index",
     "van-transition": "/wxcomponents/vant/transition/index",
-    "van-overlay": "/wxcomponents/vant/overlay/index"
-  },
-  "sitemapLocation": "sitemap.json"
+    "van-overlay": "/wxcomponents/vant/overlay/index",
+    "van-radio": "/wxcomponents/vant/radio/index",
+    "van-radio-group": "/wxcomponents/vant/radio-group/index"
+  }
 }

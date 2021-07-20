@@ -102,4 +102,10 @@
 .user-info .content .row .right.data-v-ba61afb4 {
   color: #1296db;
 }
+.dv.data-v-ba61afb4 {
+  color: #66ccff;
+}
+.gril.data-v-ba61afb4 {
+  color: #ff66ff;
+}
 

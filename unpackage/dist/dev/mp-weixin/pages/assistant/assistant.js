@@ -200,13 +200,13 @@ try {
       return Promise.all(/*! import() | components/my-visit/my-visit */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/my-visit/my-visit")]).then(__webpack_require__.bind(null, /*! @/components/my-visit/my-visit.vue */ 192))
     },
     visitMe: function() {
-      return __webpack_require__.e(/*! import() | components/visit-me/visit-me */ "components/visit-me/visit-me").then(__webpack_require__.bind(null, /*! @/components/visit-me/visit-me.vue */ 228))
+      return __webpack_require__.e(/*! import() | components/visit-me/visit-me */ "components/visit-me/visit-me").then(__webpack_require__.bind(null, /*! @/components/visit-me/visit-me.vue */ 229))
     },
     userInfo: function() {
-      return __webpack_require__.e(/*! import() | components/user-info/user-info */ "components/user-info/user-info").then(__webpack_require__.bind(null, /*! @/components/user-info/user-info.vue */ 200))
+      return __webpack_require__.e(/*! import() | components/user-info/user-info */ "components/user-info/user-info").then(__webpack_require__.bind(null, /*! @/components/user-info/user-info.vue */ 201))
     },
     tabbar: function() {
-      return Promise.all(/*! import() | components/tabbar/tabbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/tabbar/tabbar")]).then(__webpack_require__.bind(null, /*! @/components/tabbar/tabbar.vue */ 207))
+      return Promise.all(/*! import() | components/tabbar/tabbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/tabbar/tabbar")]).then(__webpack_require__.bind(null, /*! @/components/tabbar/tabbar.vue */ 208))
     }
   }
 } catch (e) {

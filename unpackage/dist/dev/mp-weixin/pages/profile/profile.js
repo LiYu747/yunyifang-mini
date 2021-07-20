@@ -130,127 +130,143 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 42));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _storage = _interopRequireDefault(__webpack_require__(/*! @/utils/storage */ 26));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 {
   data: function data() {
     return {
+      radio: "1",
       name: '', // 姓名
       phoneNumber: '', // 手机号
       idCardNumber: '', // 身份证号
@@ -260,6 +276,8 @@ var _default =
       job: '', // 岗位
       role: '请选择你的角色', // 系统角色
       roles: ['请选择你的角色', '助理', '门岗安保', '普通用户'], // 系统角色组
+      types: ['身份证', '护照', '驾驶证'],
+      typesIndex: 0,
       roleIndex: 0, // 系统角色索引
       currentProvince: 0,
       workCardUrl: [], // 上传工牌图片预览路径
@@ -267,7 +285,30 @@ var _default =
       bussinessCardUrl: [] // 上传名片图片预览路径
     };
   },
+  onLoad: function onLoad(option) {
+    this.getuserInfo(option.id);
+  },
   methods: {
+    onChange: function onChange(e) {
+      this.radio = e.detail;
+    },
+    changeTpye: function changeTpye(e) {
+      this.roleIndex = e.target.value;
+      this.role = this.types[this.roleIndex];
+
+    },
+    getuserInfo: function getuserInfo(id) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res, data;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
+                  _this.$api.getinfo(id));case 2:res = _context.sent;
+                data = res.data;
+                console.log(res, 'tid');
+                _this.name = data.name;
+                _this.phoneNumber = data.phone;
+                _this.idCardNumber = data.idCardNo;
+                _this.radio = data.gender.toString();
+                _this.company = data.companyName;
+                _this.job = data.companyJob;case 11:case "end":return _context.stop();}}}, _callee);}))();
+    },
+
     // 身份证输入框失焦后根据身份证号码判定性别
     chooseSexByIdCard: function chooseSexByIdCard() {
       // 身份证正则验证

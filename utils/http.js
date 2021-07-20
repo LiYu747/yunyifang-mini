@@ -33,15 +33,14 @@ http.interceptors.response.use(response => {
 			storage.setCookie(header['set-cookie']);
 		}
 		if (data && typeof data === "object") {
-			if (data.statusCode === 200) {
-				return Promise.resolve(data.data);
-			} else {
+			if (data.statusCode !== 200) {
 				uni.showToast({
 					title: data.message,
 					icon: 'none'
 				});
 				return Promise.reject(data);
 			}
+			return Promise.resolve(data); 
 		} else {
 			return Promise.reject(data);
 		}

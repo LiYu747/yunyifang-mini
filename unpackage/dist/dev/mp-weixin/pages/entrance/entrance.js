@@ -96,7 +96,7 @@ var components
 try {
   components = {
     itemDesc: function() {
-      return __webpack_require__.e(/*! import() | components/itemDesc/itemDesc */ "components/itemDesc/itemDesc").then(__webpack_require__.bind(null, /*! @/components/itemDesc/itemDesc.vue */ 221))
+      return __webpack_require__.e(/*! import() | components/itemDesc/itemDesc */ "components/itemDesc/itemDesc").then(__webpack_require__.bind(null, /*! @/components/itemDesc/itemDesc.vue */ 222))
     }
   }
 } catch (e) {
@@ -213,9 +213,8 @@ var _default =
         _this.openId = res.openId;
         if (res.id) {
           console.log("跳轉頁面");
-          uni.navigateTo({
-            url: "/pages/index/index}",
-            query: { userInfo: JSON.stringify(res) } });
+          uni.redirectTo({
+            url: "/pages/common-user/common-user" });
 
         }
       });
@@ -245,10 +244,9 @@ var _default =
                   country: profile.userInfo.country,
                   province: profile.userInfo.province }).
                 then(function (res) {
-                  console.log("msg", res);
                   if (res.statusCode == 200) {
-                    uni.navigateTo({
-                      url: "/pages/index/index" });
+                    uni.redirectTo({
+                      url: "/pages/common-user/common-user" });
 
                   } else {
                     uni.showModal({

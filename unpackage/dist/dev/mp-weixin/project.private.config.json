@@ -53,6 +53,24 @@
           "pathName": "pages/common-user/common-user",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/detail/detail",
+          "pathName": "pages/detail/detail",
+          "query": "id=2",
+          "scene": null
+        },
+        {
+          "name": "pages/audit/audit",
+          "pathName": "pages/audit/audit",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/profile/profile",
+          "pathName": "pages/profile/profile",
+          "query": "id=1",
+          "scene": null
         }
       ]
     }

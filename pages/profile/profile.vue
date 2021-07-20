@@ -3,7 +3,7 @@
 	<view class="profile">
 		<view class="content">
 			<!-- 系统角色 -->
-			<view class="row">
+		<!-- 	<view class="row">
 				<text class="title">系统角色</text>
 				<picker 
 					mode="selector" 
@@ -14,7 +14,7 @@
 				 >
 					<view>{{role}}</view>
 				</picker>
-			</view>
+			</view> -->
 			<!-- 修改姓名 -->
 			<view class="row">
 				<text class="title">姓名</text>
@@ -36,18 +36,32 @@
 					@blur="chooseSexByIdCard"
 					>
 			</view>
+			<!-- 系统角色 -->
+				<view class="row">
+					<text class="title">证件类型</text>
+					<picker 
+						mode="selector" 
+						:value="roleIndex"
+						:range="types" 
+						:style="{color: roleIndex == 0 ? '#aaa': '#333'}"
+						@change="changeTpye"
+					 >
+						<view>请选择你的证件类型</view>
+					</picker>
+				</view>
+			<!-- 身份证输入 -->
+			<view class="row">
+				<text class="title">证件号</text>
+				<input type="number" :maxlength="11" placeholder="请输入手机号" v-model="phoneNumber">
+			</view>
 			<!-- 性别 -->
 			<view class="row">
 				<text class="title">性别</text>
 				<view class="sex">
-					<view class="sex-type">
-						<text>男</text>
-						<text :class="manChecked?'radio checked' : 'radio'"></text>
-					</view>
-					<view class="sex-type">
-						<text>女</text>
-						<text :class="!manChecked?'radio checked' : 'radio'"></text>
-					</view>
+					<van-radio-group  direction="horizontal" :value="radio" @change="onChange">
+					  <van-radio name="1">男</van-radio>
+					  <van-radio name="2">女</van-radio>
+					</van-radio-group>
 				</view>
 			</view>
 			<!-- 我的单位 -->
@@ -116,9 +130,11 @@
 </template>
 
 <script>
+	import storage from '@/utils/storage'
 	export default {
 		data() {
 			return {
+				radio: "1",
 				name: '',// 姓名
 				phoneNumber: '', // 手机号
 				idCardNumber: '', // 身份证号
@@ -128,6 +144,8 @@
 				job: '', // 岗位
 				role: '请选择你的角色', // 系统角色
 				roles: ['请选择你的角色','助理','门岗安保','普通用户'], // 系统角色组
+				types:['身份证','护照','驾驶证'],
+				typesIndex:0,
 				roleIndex: 0, // 系统角色索引
 				currentProvince: 0,
 				workCardUrl: [], // 上传工牌图片预览路径
@@ -135,7 +153,30 @@
 				bussinessCardUrl: [], // 上传名片图片预览路径
 			}
 		},
+		onLoad(option){
+			this.getuserInfo(option.id)
+		},
 		methods: {
+			onChange(e){
+				this.radio = e.detail
+			},
+			changeTpye(e){
+				this.roleIndex = e.target.value
+				this.role = this.types[this.roleIndex]
+				
+			},
+			async getuserInfo(id){
+				const res = await this.$api.getinfo(id);
+				const data = res.data
+				console.log(res,'tid'); 
+				this.name = data.name
+				this.phoneNumber = data.phone
+				this.idCardNumber = data.idCardNo
+				this.radio =  data.gender.toString()
+				this.company = data.companyName
+				this.job = data.companyJob
+			},
+			
 			// 身份证输入框失焦后根据身份证号码判定性别
 			chooseSexByIdCard() {
 				// 身份证正则验证

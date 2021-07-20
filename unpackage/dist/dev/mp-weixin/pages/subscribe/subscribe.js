@@ -135,7 +135,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var timeSelector = function timeSelector() {Promise.all(/*! require.ensure | components/xiujun-time-selector/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/xiujun-time-selector/index")]).then((function () {return resolve(__webpack_require__(/*! @/components/xiujun-time-selector/index.vue */ 242));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var timeSelector = function timeSelector() {Promise.all(/*! require.ensure | components/xiujun-time-selector/index */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/xiujun-time-selector/index")]).then((function () {return resolve(__webpack_require__(/*! @/components/xiujun-time-selector/index.vue */ 243));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 

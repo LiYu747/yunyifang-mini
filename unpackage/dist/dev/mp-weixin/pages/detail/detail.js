@@ -97,8 +97,10 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var m0 = _vm.getType(_vm.wxvisitDetail.reasonType)
-  var m1 = _vm.getIdCardType(_vm.wxvisitDetail.idCardType)
+  var m0 = _vm.wxvisitDetail ? _vm.getType(_vm.wxvisitDetail.reasonType) : null
+  var m1 = _vm.wxvisitDetail
+    ? _vm.getIdCardType(_vm.wxvisitDetail.idCardType)
+    : null
   _vm.$mp.data = Object.assign(
     {},
     {
@@ -141,7 +143,17 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 42));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};} //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -246,19 +258,42 @@ var _default =
     } },
 
   onLoad: function onLoad(options) {
-    console.log(options);
-    this.getWxvisitDetail(options.id);
     this.type = options.type;
-    this.auditState = options.auditState;
+    this.getWxvisitDetail(options.id);
   },
   methods: {
-    getWxvisitDetail: function getWxvisitDetail(id) {var _this = this;
-      console.log("-----");
-      this.$api.wxvisitDetail(id).then(function (res) {
-        _this.wxvisitDetail = res;
-        console.log(_this.wxvisitDetail, "---");
-      });
+    //获取用户资料
+    getWxvisitDetail: function getWxvisitDetail(id) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res, data;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
+                  _this.$api.wxvisitDetail(id));case 2:res = _context.sent;
+                data = res.data;
+                data.intervieweeStartTime = data.intervieweeStartTime.slice(0, 16);
+                data.intervieweeEndTime = data.intervieweeEndTime.slice(11, 16);
+                data.visitTime = data.intervieweeStartTime + ' - ' + data.intervieweeEndTime;
+                _this.wxvisitDetail = data;
+                console.log(_this.wxvisitDetail, "---");case 9:case "end":return _context.stop();}}}, _callee);}))();
+    },
+    // 同意
+    agree: function agree() {
+      this.option(2);
+    },
+    // 拒绝
+    refuse: function refuse() {
+      this.option(3);
+    },
+    //操作请求
+    option: function option(status) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
+                  _this2.$api.operation(_this2.wxvisitDetail.id, {
+                    intervieweeStatus: status,
+                    id: _this2.wxvisitDetail.id }));case 2:res = _context2.sent;
+
+                if (res.statusCode === 200) {
+                  uni.showToast({
+                    icon: "none",
+                    title: "操作成功" });
+
+                }case 4:case "end":return _context2.stop();}}}, _callee2);}))();
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

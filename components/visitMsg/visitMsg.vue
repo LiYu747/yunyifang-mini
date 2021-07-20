@@ -1,49 +1,33 @@
 <!-- 来访信息组件 -->
 <template>
 	<view class="visit-msg m-t2">
-		<view class="title" >
+		<view class="title">
 			<text>{{title}}</text>
 		</view>
 		<view class="content" v-if="msg.length !== 0">
 			<!-- 每个来访状态 -->
-			<view class="msg" v-for="(item,index) in msg" :key="item.id" :style="{color: isHistory ? '#999' : ''}">
+			<view class="msg" v-for="(item,index) in msg" @click="toVisitDetail(item)" :key="item.id"
+				:style="{color: isHistory ? '#999' : ''}">
 				<view class="itemNane">
 					<view class="">
-						{{item.boss}}
+						{{item.name}}
 					</view>
-					<view class="" :class="[item.visitState=='待通过'?'nopas':'',item.visitState=='已完成'?'pass':'',item.visitState == '已终止'?'termination':'']">
-						{{item.visitState}}
+					<view 
+						:class="[item.intervieweeStatus=='待审核'?'nopas':'',item.intervieweeStatus=='已通过'?'pass':'',item.intervieweeStatus == '未通过'?'termination':'']">
+						{{item.intervieweeStatus}}
 					</view>
 				</view>
 				<view class="itemCent">
 					<view class="m-t3 flex al-center">
 						事业单位:
 						<view class="company">
-							{{item.company}}
+							{{item.companyName}}
 						</view>
 					</view>
 					<view class="m-t3 flex al-center">
 						来访日期:
 						<view class="company">
 							{{item.visitTime}}
-						</view>
-					</view>
-				</view>
-				<view v-if="type == 2" class="jurmsg">
-					<view v-if="item.jurisdiction == 1" class="flex">
-						<view class="jurflex flex al-center ju-center boder-r">
-							门岗已授权
-							<image src="../../static/img/yes.png" class="yesIcon" mode=""></image>
-						</view>
-						<view class="jurflex flex al-center ju-center">
-							受访人已审核
-							<image src="../../static/img/yes.png" class="yesIcon" mode=""></image>
-						</view>
-					</view>
-					<view class="" v-if="item.jurisdiction == 0">
-						<view class="flex al-center ju-center jurflex refuse">
-							受访人已拒绝
-							<image src="../../static/img/refuse.png" class="refuseIcon" mode=""></image>
 						</view>
 					</view>
 				</view>
@@ -74,11 +58,9 @@
 				}]
 			}
 		},
-		onLoad() {
-			console.log(msg);
-		},
-		onShow(){
-			 console.log("创建")
+		onLoad() {},
+		onShow() {
+			console.log("创建")
 		},
 		computed: {
 			isHistory() {
@@ -98,15 +80,9 @@
 		},
 		methods: {
 			// 点击详情跳转来访详情页
-			toVisitDetail(id) {
-				// let type = ''
-				// if(this.title == '我的今日到访' || this.title == '我的历史到访' || this.title == '我的今日接待' || this.title == '我的历史接待'){
-				// 	type = 'visitor'
-				// }else if(this.title == '我的今日拜访' || this.title == '历史拜访记录'){
-				// 	type = 'interviewee'
-				// }
+			toVisitDetail(item) {
 				uni.navigateTo({
-					url: `/pages/detail/detail?id=${id}`
+					url: '/pages/detail/detail?id=' + item.id + "&type=" + this.type
 				})
 			}
 		}
@@ -115,9 +91,10 @@
 
 <style lang="scss" scoped>
 	.visit-msg {
-      width: 690rpx;
-	  padding: 40rpx 30rpx;
-	  background: #FFF;
+		width: 690rpx;
+		padding: 40rpx 30rpx;
+		background: #FFF;
+
 		.title {
 			font-size: 36rpx;
 			font-family: Microsoft YaHei;
@@ -129,7 +106,8 @@
 		.content {
 			font-size: 24rpx;
 			color: #333;
-			.msg{
+
+			.msg {
 				margin-top: 20rpx;
 				width: 100%;
 				border-radius: 10rpx;
@@ -137,7 +115,8 @@
 				display: flex;
 				flex-direction: column;
 				align-items: center;
-				.itemNane{
+
+				.itemNane {
 					width: 650rpx;
 					height: 90rpx;
 					display: flex;
@@ -147,64 +126,75 @@
 					border-bottom: 1px solid #F2F2F2;
 					font-weight: bold;
 					color: #000000;
-					.nopas{
+
+					.nopas {
 						color: #FFB109;
 						font-size: 28rpx;
 						font-weight: 400;
 					}
-					.pass{
+
+					.pass {
 						color: #349A20;
 						font-size: 28rpx;
 						font-weight: 400;
 					}
 				}
-				.itemCent{
+
+				.itemCent {
 					width: 650rpx;
 					font-size: 28rpx;
 					color: #333;
 					margin-bottom: 40rpx;
-					.company{
+
+					.company {
 						margin-left: 10rpx;
 						color: #808080;
 					}
 				}
-				.jurmsg{
+
+				.jurmsg {
 					border-top: 1px solid #F2F2F2;
 					width: 690rpx;
-					height: 90rpx;;
+					height: 90rpx;
+					;
 					color: #349A20;
 					font-size: 28rpx;
-					.jurflex{
+
+					.jurflex {
 						flex: 1;
 						height: 90rpx;
 					}
-					.boder-r{
+
+					.boder-r {
 						border-right: 1px solid #F2F2F2;
 					}
-					.yesIcon{
+
+					.yesIcon {
 						width: 50rpx;
-						height: 50rpx;;
+						height: 50rpx;
+						;
 					}
 				}
-				.refuse{
+
+				.refuse {
 					color: #FF0000;
 				}
-				.refuseIcon{
+
+				.refuseIcon {
 					width: 32rpx;
 					height: 32rpx;
 					margin-left: 10rpx;
 				}
-				.termination{
+
+				.termination {
 					color: #FF0000;
 					font-size: 28rpx;
 					font-weight: 400;
 				}
-				
+
 			}
 		}
 
-		/deep/ .van-empty {
-			height: 300rpx;
-		}
+
 	}
 </style>

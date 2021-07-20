@@ -96,7 +96,7 @@ var components
 try {
   components = {
     carNumber: function() {
-      return __webpack_require__.e(/*! import() | components/car-number/car-number */ "components/car-number/car-number").then(__webpack_require__.bind(null, /*! @/components/car-number/car-number.vue */ 250))
+      return __webpack_require__.e(/*! import() | components/car-number/car-number */ "components/car-number/car-number").then(__webpack_require__.bind(null, /*! @/components/car-number/car-number.vue */ 251))
     }
   }
 } catch (e) {

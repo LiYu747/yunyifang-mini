@@ -1,38 +1,55 @@
 <!-- 我的拜访详情与被我的访客详情信息 -->
 <template>
-	<view class="visitor-detail">
+	<view v-if="wxvisitDetail" class="visitor-detail">
 		<!-- 被访问人信息 -->
 		<view class="interviewee">
-			<image class="left" src="../../static/logo.png" mode="aspectFit" />
-			<view class="right">
-				<view>被访人：{{wxvisitDetail.intervieweeName}}</view>
-				<!-- <view>被访人部门：{{wxvisitDetail}}</view> -->
-				<view>被访人审批：{{wxvisitDetail.intervieweeStatus==1 ? '未通过' : '已通过'}}</view>
-				<view>审批时间：{{wxvisitDetail.updTime}}</view>
+			<view class="flex">
+				<image class="left" src="../../static/img/logo.png" mode="aspectFit" />
+				<view class="right">
+					<view class="flex">
+						<view class="title">
+							姓名
+						</view>
+						{{wxvisitDetail.name}}
+					</view>
+					<!-- <view>被访人部门：{{wxvisitDetail}}</view> -->
+					<view class="flex">
+						<view class="title">
+							性别
+						</view>
+						{{wxvisitDetail.gender == 1 ? '男' : '女'}}
+					</view>
+					<view class="flex">
+						<view class="title">
+							审批时间
+						</view>
+						{{wxvisitDetail.visitTime}}
+					</view>
+				</view>
+			</view>
+			<view class="button" v-if="item.intervieweeStatus === 1 && type === 1">
+				<button class="btn" @click="agree" type="primary">同意</button>
+				<button class="btn" @click="refuse" type="warn">拒绝</button>
 			</view>
 		</view>
 		<!-- 来访者信息 -->
 		<view class="visitor">
-			<view class="title">来访者信息</view>
+			<view class="title">详细信息</view>
 			<view class="row">
-				<text class="column1">姓名</text>
-				<text class="column2">{{wxvisitDetail.name}}</text>
+				<text class="column1">所在单位</text>
+				<text class="column2">{{wxvisitDetail.companyName}}</text>
 			</view>
 			<view class="row sex">
-				<text class="column1">性别</text>
-				<text class="column2">{{wxvisitDetail.gender == 1 ? '男' :"女"}}</text>
-			</view>
-			<view class="row">
-				<text class="column1">预约时间</text>
-				<text class="column2">{{wxvisitDetail.intervieweeStartTime}}</text>
-			</view>
-			<view class="row">
 				<text class="column1">岗位</text>
 				<text class="column2">{{wxvisitDetail.companyJob}}</text>
 			</view>
 			<view class="row">
 				<text class="column1">来访车牌</text>
 				<text class="column2">{{wxvisitDetail.carNo}}</text>
+			</view>
+			<view class="row">
+				<text class="column1">闸机识别</text>
+				<text class="column2">{{wxvisitDetail.companyJob}}</text>
 			</view>
 			<view class="row">
 				<text class="column1">随行人数</text>
@@ -51,20 +68,13 @@
 				<text class="column2">{{wxvisitDetail.idCardNo}}</text>
 			</view>
 			<view class="row">
-				<text class="column1">所在单位</text>
-				<text class="column2">{{wxvisitDetail.companyName}}</text>
-			</view>
-			<view class="row">
 				<text class="column1">二维码</text>
-				<image class="pic" :src="'data:image/png;base64,'+wxvisitDetail.base64QrCode" mode="aspectFit" />
+				<image class="pic" :src="'data:image/png;base64,'+ wxvisitDetail.base64QrCode" mode="aspectFit" />
 			</view>
 		</view>
-		<view class="button" v-if="type === 'visitor' && auditState === '受访人待审核'">
-			<button class="btn" size="mini" type="primary">同意</button>
-			<button class="btn" size="mini" type="warn">拒绝</button>
-		</view>
+
 	</view>
-	
+
 </template>
 
 <script>
@@ -103,20 +113,41 @@
 			}
 		},
 		onLoad(options) {
-			console.log(options);
-			this.getWxvisitDetail(options.id)
 			this.type = options.type
-			this.auditState = options.auditState
+			this.getWxvisitDetail(options.id)
 		},
 		methods: {
-			getWxvisitDetail(id) {
-				console.log("-----")
-				this.$api.wxvisitDetail(id).then(res => {
-					this.wxvisitDetail = res
-					console.log(this.wxvisitDetail, "---")
-				})
+			//获取用户资料
+			async getWxvisitDetail(id) {
+				const res = await this.$api.wxvisitDetail(id);
+				const data = res.data;
+				data.intervieweeStartTime = data.intervieweeStartTime.slice(0, 16)
+				data.intervieweeEndTime = data.intervieweeEndTime.slice(11, 16)
+				data.visitTime = data.intervieweeStartTime + ' - ' + data.intervieweeEndTime
+				this.wxvisitDetail = data;
+				console.log(this.wxvisitDetail, "---")
+			},
+			// 同意
+			agree() {
+				this.option(2)
+			},
+			// 拒绝
+			refuse() {
+				this.option(3)
+			},
+			//操作请求
+			async option(status) {
+				const res = await this.$api.operation(this.wxvisitDetail.id, {
+					intervieweeStatus: status,
+					id: this.wxvisitDetail.id
+				});
+				if(res.statusCode === 200){
+					uni.showToast({
+						icon:"none",
+						title:"操作成功"
+					})
+				}
 			}
-
 		}
 	}
 </script>
@@ -124,64 +155,64 @@
 <style lang="scss" scoped>
 	.visitor-detail {
 		box-sizing: border-box;
-		padding: 20rpx;
+		padding: 30rpx;
 
 		// 被访问者信息
 		.interviewee {
+			border-radius: 10rpx;
 			box-sizing: border-box;
-			padding: 20rpx;
-			box-shadow: $boxshadow;
-			display: flex;
+			padding: 40rpx 20rpx;
+			box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.08);
 			margin-bottom: 20rpx;
 
 			.left {
-				width: 100rpx;
+				width: 150rpx;
 				height: 150rpx;
 			}
 
 			.right {
 				box-sizing: border-box;
 				padding-left: 20rpx;
-				color: #333;
-				font-size: 24rpx;
+				color: #333333;
+				font-size: 28rpx;
 				display: flex;
 				flex-direction: column;
 				justify-content: space-around;
+
+				.title {
+					width: 130rpx;
+				}
 			}
 		}
 
 		// 来访者信息
 		.visitor {
-			box-shadow: $boxshadow;
+			box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.08);
+			padding: 40rpx 20rpx;
+			border-radius: 10rpx;
+			margin-bottom: 40rpx;
 
 			.title {
-				height: 80rpx;
-				text-align: center;
-				line-height: 80rpx;
-				font-size: 32rpx;
+				color: #000000;
+				font-size: 36rpx;
 				font-weight: bold;
 			}
 
 			.row {
-				//height: 80rpx;
+				margin-top: 30rpx;
 				display: flex;
-				color: #333;
-				font-size: 24rpx;
+				color: #808080;
+				font-size: 28rpx;
 				box-sizing: border-box;
-				padding: 20rpx;
 				align-items: center;
-
-				border: {
-					top: 2rpx solid #eee;
-					left: 2rpx solid #eee;
-					right: 2rpx solid #eee;
-				}
-
-				;
 
 				.column1 {
 					display: block;
 					width: 150rpx;
+				}
+
+				.column2 {
+					color: #333333;
 				}
 
 				.pic {
@@ -192,13 +223,17 @@
 		}
 
 		.button {
+			margin-top: 10rpx;
 			width: 100%;
 			display: flex;
 			justify-content: space-around;
 			padding: 20rpx 0;
 
 			.btn {
-				display: block;
+				width: 250rpx;
+				height: 70rpx;
+				color: #fff;
+				font-size: 28rpx;
 			}
 		}
 	}

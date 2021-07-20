@@ -58,9 +58,8 @@
 					_this.openId = res.openId
 					if (res.id) {
 						console.log("跳轉頁面")
-						uni.navigateTo({
-							url: `/pages/index/index}`,
-							query:{userInfo: JSON.stringify(res)}
+						uni.redirectTo({
+							url: `/pages/common-user/common-user`,
 						})
 					}
 				})
@@ -78,7 +77,7 @@
 				let _this = this;
 				try {
 					// 授权拿取用户信息
-					let profile = await this.getUserProfile()
+					let profile = await this.getUserProfile()   
 					console.log(profile, "-----");
 					this.userInfo = profile.userInfo
 					this.$api.addThird({
@@ -90,10 +89,9 @@
 						country: profile.userInfo.country,
 						province: profile.userInfo.province
 					}).then(res => {
-						console.log("msg",res)
 						if(res.statusCode==200){
-							uni.navigateTo({
-								url:"/pages/index/index"
+							uni.redirectTo({
+								url:"/pages/common-user/common-user"
 							})
 						}else{
 							uni.showModal({

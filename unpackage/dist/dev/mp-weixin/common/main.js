@@ -17,7 +17,7 @@ _vue.default.prototype.$api = __webpack_require__(/*! ./apis/family.js */ 11);
 
 _App.default.mpType = 'app';
 
-_vue.default.prototype.baseUrl = "http://192.168.0.105:8765";
+_vue.default.prototype.baseUrl = "http://192.168.0.102:8765";
 
 var app = new _vue.default(_objectSpread({},
 _App.default));

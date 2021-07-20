@@ -2067,7 +2067,7 @@ function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.wxvisitDetail = exports.wxvisitTobe = exports.addThird = exports.getUserInfos = exports.addWxvisit = exports.getUser = exports.setUser = exports.getWxVisit = exports.getUserInfo = exports.getOpen = exports.login = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.operation = exports.wxvisitDetail = exports.wxvisitTobe = exports.addThird = exports.getUserInfos = exports.addWxvisit = exports.getUser = exports.setUser = exports.getWxVisit = exports.getinfo = exports.getUserInfo = exports.getOpen = exports.login = void 0;var _http = _interopRequireDefault(__webpack_require__(/*! @/utils/http */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 // export default {
 // 登录
@@ -2082,9 +2082,15 @@ exports.login = login;var getOpen = function getOpen(code) {
 exports.getOpen = getOpen;var getUserInfo = function getUserInfo(openid) {
   return _http.default.get("/api/wx/third/detail/?openid=".concat(openid));
 };
-// 分页获取用户被拜访记录
-exports.getUserInfo = getUserInfo;var getWxVisit = function getWxVisit(obj) {
-  return _http.default.get("/api/wx/wxvisit/page", obj);
+
+//获取用户基本信息
+exports.getUserInfo = getUserInfo;var getinfo = function getinfo(tid) {
+  return _http.default.get("/api/wx/wxuser/detailByTid/".concat(tid));
+
+};
+// 分页获取用户被拜访记录、来访记录
+exports.getinfo = getinfo;var getWxVisit = function getWxVisit(obj) {
+  return _http.default.get("/api/wx/wxvisit/tobe", obj);
 };
 // 修改用户信息
 exports.getWxVisit = getWxVisit;var setUser = function setUser(user) {
@@ -2114,9 +2120,12 @@ exports.addThird = addThird;var wxvisitTobe = function wxvisitTobe(id) {
 exports.wxvisitTobe = wxvisitTobe;var wxvisitDetail = function wxvisitDetail(id) {
   return _http.default.get("/api/wx/wxvisit/".concat(id));
 };
-
+//操作来访
+exports.wxvisitDetail = wxvisitDetail;var operation = function operation(id, data) {
+  return _http.default.put("/api/wx/wxvisit/".concat(id), data);
+};
 // .}
-exports.wxvisitDetail = wxvisitDetail;
+exports.operation = operation;
 
 /***/ }),
 
@@ -2163,15 +2172,14 @@ http.interceptors.response.use(function (response) {
     _storage.default.setCookie(header['set-cookie']);
   }
   if (data && typeof data === "object") {
-    if (data.statusCode === 200) {
-      return Promise.resolve(data.data);
-    } else {
+    if (data.statusCode !== 200) {
       uni.showToast({
         title: data.message,
         icon: 'none' });
 
       return Promise.reject(data);
     }
+    return Promise.resolve(data);
   } else {
     return Promise.reject(data);
   }
@@ -9115,7 +9123,7 @@ function _default(globalsConfig) {var config2 = arguments.length > 1 && argument
 
 /***/ }),
 
-/***/ 247:
+/***/ 248:
 /*!****************************************************************************************************!*\
   !*** C:/Users/webcode001/Desktop/ly/cloud-eazy-visit-mini/components/xiujun-time-selector/date.js ***!
   \****************************************************************************************************/
@@ -9296,7 +9304,7 @@ var ACCESS_INFO = 'access.info';var _default =
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.getWxAuthUrl = getWxAuthUrl;exports.TEST_WEBSOCKET_HOST = exports.API_BASE_URL = exports.HOST = exports.APPID = void 0; // 小程序appId
+Object.defineProperty(exports, "__esModule", { value: true });exports.getWxAuthUrl = getWxAuthUrl;exports.INTERVIEWEE_STATUS = exports.TEST_WEBSOCKET_HOST = exports.API_BASE_URL = exports.HOST = exports.APPID = void 0; // 小程序appId
 var APPID = 'wx0fe051b5f96d9d38';
 // 微信公众授权URL
 exports.APPID = APPID;function getWxAuthUrl() {
@@ -9305,13 +9313,15 @@ exports.APPID = APPID;function getWxAuthUrl() {
   return "https://open.weixin.qq.com/connect/oauth2/authorize?appid=".concat(APPID, "&redirect_uri=").concat(encodeURIComponent(window.location.origin), "&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect");
 }
 // 接口HOST
-var HOST = '192.168.0.105:8765'; // 开发测试公网
+var HOST = '192.168.0.102:8765'; // 开发测试公网
 exports.HOST = HOST;
 var API_BASE_URL = "http://".concat(HOST);
 
 // SOCKET地址
 // export const TEST_WEBSOCKET_HOST = 'localhost';
 exports.API_BASE_URL = API_BASE_URL;var TEST_WEBSOCKET_HOST = HOST;exports.TEST_WEBSOCKET_HOST = TEST_WEBSOCKET_HOST;
+
+var INTERVIEWEE_STATUS = { 1: '待审核', 2: '已通过', 3: '未通过' };exports.INTERVIEWEE_STATUS = INTERVIEWEE_STATUS;
 
 /***/ }),
 

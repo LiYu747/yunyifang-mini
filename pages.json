@@ -25,7 +25,10 @@
 			"path": "pages/checkcode-result/checkcode-result"
 		},
 		{
-			"path": "pages/detail/detail"
+			"path": "pages/detail/detail",
+			 "style": {
+			        "navigationBarTitleText": "信息详情"//设置页面标题文字
+			      }
 		}, {
 			"path": "pages/check-face/check-face"
 		}, {
@@ -64,7 +67,9 @@
 			"van-datetime-picker": "/wxcomponents/vant/datetime-picker/index",
 			"van-empty": "/wxcomponents/vant/empty/index",
 			"van-transition": "/wxcomponents/vant/transition/index",
-			"van-overlay": "/wxcomponents/vant/overlay/index"
+			"van-overlay": "/wxcomponents/vant/overlay/index",
+			"van-radio": "/wxcomponents/vant/radio/index",
+			"van-radio-group": "/wxcomponents/vant/radio-group/index"
 		}
 	},
 	"condition": {
