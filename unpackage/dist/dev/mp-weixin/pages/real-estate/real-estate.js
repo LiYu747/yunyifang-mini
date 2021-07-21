@@ -97,6 +97,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      _vm.show = false
+    }
+
+    _vm.e1 = function($event) {
+      _vm.show = false
+    }
+
+    _vm.e2 = function($event) {
+      _vm.show = false
+    }
+
+    _vm.e3 = function($event) {
+      _vm.show = false
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -130,204 +147,200 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 34));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _constant = __webpack_require__(/*! @/utils/constant */ 27);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 {
   data: function data() {
     return {
-      floors: ['选择楼层', '1楼', '2楼', '3楼'], // 楼层信息
-      floorIndex: 0, // 当前选中楼层索引
-      company: ['选择单位', '四川省成都市利菲普斯科技有限公司',
-      '四川省成都市利菲普斯科技有限公司',
-      '四川省成都市利菲普斯科技有限公司'],
-      // 所属单位信息
-      companyIndex: 0, // 当前选中公司索引
-      reason: ['选择事由', '商务沟通', '面试', '探亲', '参观', '政务沟通'], // 拜访事由
+      formData: {
+        id: "", //用户id
+        gender: 1, //性别
+        name: '', // 姓名
+        phone: '', // 手机号
+        idCardNo: '', // 身份证号
+        carNo: '', //车牌号
+        companyName: '', // 公司
+        companyJob: '', // 岗位 
+        idCardType: 1 },
+
+      types: ['身份证', '护照', '驾驶证'],
+      typeText: '',
+      reason: ['商务沟通', '面试', '探亲', '参观', '政务沟通'], // 拜访事由
       reasonIndex: 0, // 当前选中拜访事由
-      currentDate: '', // 当前日期
-      checkedDate: '', // 选中日期
-      workCardUrl: [], // 工牌图片预览路径
-      buinessCardUrl: [], // 名片图片预览路径 
-      idCardUrl: [] // 身份证图片预览路径
+      reasonVal: '', //选择原因
+      viNumber: '', //随行人数
+      realName: '', //受访人姓名
+      realPhone: '', //受访人电话
+      show: false,
+      minDate: new Date().getTime(),
+      maxDate: new Date(2030, 10, 1).getTime(),
+      currentDate: new Date().getTime(),
+      isSandE: 1, //判断1是开始时间,2是结束时间
+      startTimeVal: '', //开始时间
+      endTimeVal: "" //结束时间
     };
   },
   onLoad: function onLoad() {
-    this.getCurrentDate();
+    this.getuserInfo(1);
   },
   methods: {
+    //打开时间选择
+    addStartTime: function addStartTime() {
+      this.show = !this.show;
+      this.isSandE = 1;
+    },
+    addEndTime: function addEndTime() {
+      this.show = !this.show;
+      this.isSandE = 2;
+    },
+    //时间确定
+    userConfirm: function userConfirm(e) {
+
+      function addZero(m) {
+        return m < 10 ? '0' + m : m;
+      }
+      var time = new Date(e.detail);
+      var y = time.getFullYear();
+      var M = time.getMonth() + 1;
+      var d = time.getDate();
+      var h = time.getHours();
+      var m = time.getMinutes();
+      var timer = y + '-' + addZero(M) + '-' + addZero(d) + " " + addZero(h) + ":" + addZero(m);
+      this.show = false;
+      if (this.isSandE === 1) {
+        this.startTimeVal = timer;
+      }
+      if (this.isSandE === 2) {
+        this.endTimeVal = timer;
+      }
+    },
+
+    getuserInfo: function getuserInfo(id) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res, data;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
+                  _this.$api.getinfo(id));case 2:res = _context.sent;
+                data = res.data;
+                _this.formData = res.data;
+                _this.typeText = _constant.IDCAR_TYPE[data.idCardType];case 6:case "end":return _context.stop();}}}, _callee);}))();
+    },
     // picker中的选中改变Index显示对应内容
-    indexChange: function indexChange(type, e) {
-      switch (type) {
-        case 'floor':
-          this.floorIndex = e.detail.value;
-          break;
-        case 'company':
-          this.companyIndex = e.detail.value;
-          break;
-        case 'reason':
-          this.reasonIndex = e.detail.value;
-          break;}
-
-
-    },
-    // 获取当前时间
-    getCurrentDate: function getCurrentDate() {
-      var date = new Date();
-      var year = date.getFullYear();
-      var month = date.getMonth() + 1;
-      var day = date.getDate();
-      month = month < 9 ? "0".concat(month) : month;
-      day = day < 9 ? "0".concat(day) : day;
-      this.currentDate = "".concat(year, "-").concat(month, "-").concat(day);
-      this.checkedDate = this.currentDate;
-    },
-    // 选中日期
-    changeDate: function changeDate(e) {
-      console.log(e);
-      this.checkedDate = e.target.value;
-    },
-    // 点击选择图片
-    chooseImg: function chooseImg(type) {
-      var that = this;
-      uni.chooseImage({
-        count: 2,
-        success: function success(res) {
-          switch (type) {
-            case 'workCard':
-              that.workCardUrl = res.tempFilePaths;
-              break;
-            case 'buinessCard':
-              that.buinessCardUrl = res.tempFilePaths;
-              break;
-            case 'idCard':
-              that.idCardUrl = res.tempFilePaths;
-              break;}
-
-        } });
-
-    },
-    // 点击图片预览
-    previewImg: function previewImg(index, urls) {
-      uni.previewImage({
-        urls: urls,
-        current: index,
-        indicator: 'default',
-        loop: true });
+    indexChange: function indexChange(e) {
+      this.reasonIndex = e.detail.value;
+      this.reasonVal = this.reason[e.detail.value];
 
     },
     formSubmit: function formSubmit(e) {

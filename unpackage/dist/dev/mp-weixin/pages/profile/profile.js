@@ -130,7 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 42));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 34));
 
 
 
@@ -199,176 +199,104 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var _storage = _interopRequireDefault(__webpack_require__(/*! @/utils/storage */ 26));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
+var _storage = _interopRequireDefault(__webpack_require__(/*! @/utils/storage */ 26));
+var _constant = __webpack_require__(/*! @/utils/constant */ 27);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 {
   data: function data() {
     return {
-      radio: "1",
-      name: '', // 姓名
-      phoneNumber: '', // 手机号
-      idCardNumber: '', // 身份证号
-      sex: '男', // 性别
-      manChecked: true, // 性别选中标志
-      company: '', // 公司
-      job: '', // 岗位
-      role: '请选择你的角色', // 系统角色
-      roles: ['请选择你的角色', '助理', '门岗安保', '普通用户'], // 系统角色组
+      formData: {
+        id: "", //用户id
+        gender: 1, //性别
+        name: '', // 姓名
+        phone: '', // 手机号
+        idCardNo: '', // 身份证号
+        carNo: '', //车牌号
+        companyName: '', // 公司
+        companyJob: '', // 岗位 
+        idCardType: 1 },
+
       types: ['身份证', '护照', '驾驶证'],
-      typesIndex: 0,
-      roleIndex: 0, // 系统角色索引
-      currentProvince: 0,
-      workCardUrl: [], // 上传工牌图片预览路径
-      idCardUrl: [], // 上传身份证图片预览路径
-      bussinessCardUrl: [] // 上传名片图片预览路径
-    };
+      typeText: '' };
+
   },
   onLoad: function onLoad(option) {
     this.getuserInfo(option.id);
   },
   methods: {
-    onChange: function onChange(e) {
-      this.radio = e.detail;
+    changeIndex: function changeIndex(e) {
+      this.formData.idCardType = parseInt(e.detail.value) + 1;
+      this.typeText = this.types[e.detail.value];
     },
-    changeTpye: function changeTpye(e) {
-      this.roleIndex = e.target.value;
-      this.role = this.types[this.roleIndex];
-
+    onChange: function onChange(e) {
+      this.formData.gender = e.detail;
     },
     getuserInfo: function getuserInfo(id) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res, data;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
                   _this.$api.getinfo(id));case 2:res = _context.sent;
                 data = res.data;
-                console.log(res, 'tid');
-                _this.name = data.name;
-                _this.phoneNumber = data.phone;
-                _this.idCardNumber = data.idCardNo;
-                _this.radio = data.gender.toString();
-                _this.company = data.companyName;
-                _this.job = data.companyJob;case 11:case "end":return _context.stop();}}}, _callee);}))();
+                _this.formData = res.data;
+                _this.typeText = _constant.IDCAR_TYPE[data.idCardType];case 6:case "end":return _context.stop();}}}, _callee);}))();
     },
 
-    // 身份证输入框失焦后根据身份证号码判定性别
-    chooseSexByIdCard: function chooseSexByIdCard() {
-      // 身份证正则验证
-      var idCardReg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-      if (!idCardReg.test(this.idCardNumber)) {
-        uni.showToast({
-          icon: 'none',
-          title: '身份证号码格式不正确!' });
-
-        return;
-      }
-      this.manChecked = this.idCardNumber[16] % 2 == 0 ? false : true;
-      this.sex = this.manChecked ? '男' : '女';
-    },
-    // 系统角色改变
-    changeIndex: function changeIndex(e) {
-      this.roleIndex = e.target.value;
-      this.role = this.roles[this.roleIndex];
-    },
     // 点击保存信息验证表单，提交表单
     saveInfo: function saveInfo() {
       // 电话号码验证正则
       var phoneReg = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
       // 身份证正则验证
       var idCardReg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
-      if (!phoneReg.test(this.phoneNumber) || !idCardReg.test(idCardNumber)) {
+      if (!phoneReg.test(this.formData.phone) || !idCardReg.test(this.formData.idCardNo)) {
         uni.showToast({
           icon: 'none',
           title: '手机号或者身份证号码格式不正确！',
-          duration: 2000,
-          success: function success() {
-            return;
-          } });
+          duration: 2000 });
 
+        return;
       }
+      if (!this.formData.id) {
+        this.pushUserInfo();
+        return;
+      }
+      this.addSave();
+    },
+    //修改信息
+    addSave: function addSave() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
+                  _this2.$api.setUser(_this2.formData.id, {
+                    id: _this2.formData.id,
+                    gender: _this2.formData.gender, //性别
+                    name: _this2.formData.name, // 姓名
+                    phone: _this2.formData.phone, // 手机号
+                    idCardNo: _this2.formData.idCardNo, // 身份证号
+                    carNo: _this2.formData.carNo, //车牌号
+                    companyName: _this2.formData.companyName, // 公司
+                    companyJob: _this2.formData.companyJob, // 岗位 
+                    idCardType: _this2.formData.idCardType }));case 2:res = _context2.sent;
 
-      // 跳转对应角色的我的拜访页面
-      var role = this.role;
-      switch (role) {
-        case '助理':
-          getApp().globalData.roleType = 'assistant';
-          uni.navigateTo({
-            url: "/pages/assistant/assistant" });
+                if (res.statusCode == 200) {
+                  uni.showToast({
+                    icon: "none",
+                    default: 3000,
+                    title: "修改成功" });
 
-          break;
-        case '门岗安保':
-          getApp().globalData.roleType = 'guard';
-          uni.navigateTo({
-            url: "/pages/guard/guard" });
+                }case 4:case "end":return _context2.stop();}}}, _callee2);}))();
+    },
+    // 增添信息
+    pushUserInfo: function pushUserInfo() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
+                  _this3.$api.pushUser({
+                    gender: _this3.formData.gender, //性别
+                    name: _this3.formData.name, // 姓名
+                    phone: _this3.formData.phone, // 手机号
+                    idCardNo: _this3.formData.idCardNo, // 身份证号
+                    carNo: _this3.formData.carNo, //车牌号
+                    companyName: _this3.formData.companyName, // 公司
+                    companyJob: _this3.formData.companyJob, // 岗位 
+                    idCardType: _this3.formData.idCardType }));case 2:res = _context3.sent;
 
-          break;
-        case '普通用户':
-          getApp().globalData.roleType = 'commonUser';
-          uni.navigateTo({
-            url: "/pages/common-user/common-user" });
+                if (res.statusCode == 200) {
+                  uni.showToast({
+                    icon: "none",
+                    default: 3000,
+                    title: "保存成功" });
 
-          break;
-        case '请选择你的角色':
-          break;}
-
+                }case 4:case "end":return _context3.stop();}}}, _callee3);}))();
     },
     // 上传图片后回调
     afterRead: function afterRead(type, e) {

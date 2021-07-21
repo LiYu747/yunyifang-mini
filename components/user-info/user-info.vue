@@ -37,7 +37,7 @@
 				</view>
 				<text class="right iconfont icon-zuojiantou"></text>
 			</view> -->
-			<view class="row" @click="toSubscribe">
+			<view class="row" @click="historicalVisitors">
 				<view class="left">
 					<text class="iconfont icon-4-141"></text>
 					<text class="desc">我的云访</text>
@@ -63,10 +63,10 @@
 					url: '/pages/profile/profile?id=' + this.arr.id 
 				})
 			},
-			// 点击我的云访跳转预约界面
-			toSubscribe() {
+			// 点击我的历史访问记录
+			historicalVisitors() {
 				uni.navigateTo({
-					url: '/pages/subscribe/subscribe'
+					url: '/pages/historicalVisitors/historicalVisitors?id=' + this.arr.id
 				})
 			},
 			// 点击我的车辆跳转我的车辆页面

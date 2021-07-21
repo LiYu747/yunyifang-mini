@@ -18,7 +18,8 @@
     "pages/share-success/share-success",
     "pages/company-register/company-register",
     "pages/register-info/register-info",
-    "pages/my-car/my-car"
+    "pages/my-car/my-car",
+    "pages/historicalVisitors/historicalVisitors"
   ],
   "subPackages": [],
   "window": {

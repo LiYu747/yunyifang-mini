@@ -27,7 +27,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="button" v-if="item.intervieweeStatus === 1 && type === 1">
+			<view class="button" v-if="wxvisitDetail.intervieweeStatus == 1 && type == 1">
 				<button class="btn" @click="agree" type="primary">同意</button>
 				<button class="btn" @click="refuse" type="warn">拒绝</button>
 			</view>

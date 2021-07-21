@@ -23,9 +23,13 @@ export const getinfo = function (tid) {
 export const getWxVisit = function(obj) {
 	return axios.get(`/api/wx/wxvisit/tobe`, obj)
 }
-// 修改用户信息
-export const setUser=function(user) {
+// 新增用户信息
+export const pushUser = function(user) {
 	return axios.post(`/api/wx/wxuser`, user)
+}
+// 修改用户信息
+export const setUser = function(id,user) {
+	return axios.put(`/api/wx/wxuser/${id}`, user)
 }
 // 获取用户信息
 export const getUser=function(id) {
@@ -54,5 +58,10 @@ export const wxvisitDetail = function(id){
 //操作来访
 export const operation = function(id, data){
 	return axios.put(`/api/wx/wxvisit/${id}`, data)
+}
+
+//我的拜访历史
+export const historicalVisitors = function(id) {
+	return axios.get(`/api/wx/wxvisit/history/${id}`)
 }
 // .}

@@ -48,7 +48,12 @@
 		}, {
 			"path": "pages/my-car/my-car"
 		}
-	],
+	    ,
+		//历史访客
+		{
+            "path" : "pages/historicalVisitors/historicalVisitors"
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "云易访",

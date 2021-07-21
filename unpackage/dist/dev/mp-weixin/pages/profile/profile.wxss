@@ -57,6 +57,9 @@
   width: 20%;
   font-weight: bold;
 }
+.profile .content .row input.data-v-60cb334c {
+  width: 400rpx;
+}
 .profile .content .row.data-v-60cb334c .input-placeholder {
   color: #aaa;
 }

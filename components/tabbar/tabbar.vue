@@ -20,18 +20,18 @@
 			items: {
 				type: Array,
 				default: [{
-						deactiveImg: require('../../static/img/tabbar/bf1.png'),
-						activeImg: require('../../static/img/tabbar/bf2.png'),
+						deactiveImg: require('../../static/img/tabbar/home1.png'),
+						activeImg: require('../../static/img/tabbar/home2.png'),
 						text: '拜访列表'
 					},
 					{
-						deactiveImg: require('../../static/img/tabbar/jd1.png'),
-						activeImg: require('../../static/img/tabbar/jd2.png'),
+						deactiveImg: require('../../static/img/tabbar/syis1.png'), 
+						activeImg: require('../../static/img/tabbar/syis2.png'),
 						text: '扫一扫'
 					},
 					{
-						deactiveImg: require('../../static/img/tabbar/profile1.png'),
-						activeImg: require('../../static/img/tabbar/profile2.png'),
+						deactiveImg: require('../../static/img/tabbar/my1.png'),
+						activeImg: require('../../static/img/tabbar/my2.png'),
 						text: '我的'
 					}
 				]
@@ -73,7 +73,7 @@
 			}
 
 			.active {
-				color: $bgcolor;
+				color:#2AA515;
 			}
 		}
 	}

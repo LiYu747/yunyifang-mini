@@ -1,0 +1,1 @@
+<view><visit-msg vue-id="8d216040-1" title="我的历史访客" msg="{{arr.myVisit}}" type="1" bind:__l="__l"></visit-msg><visit-msg vue-id="8d216040-2" title="我的历史拜访" msg="{{arr.myVisited}}" type="2" bind:__l="__l"></visit-msg></view>

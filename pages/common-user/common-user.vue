@@ -18,7 +18,7 @@
 				currentIndex: 0,
 				arr:{
 				dater:0,
-				userInfo:null,
+				userInfo:{},
 				myVisit:[],
 				myVisited:[]}
 			}
@@ -133,7 +133,6 @@
 			 //用户拜访来访信息
 			 async getWxVisit() {
 			   const res = await this.$api.wxvisitTobe(this.arr.userInfo.id) 
-			 		console.log(res,'信息')
 			 		res.data.myVisit.map( item => {
 			 			item.intervieweeStatus = INTERVIEWEE_STATUS[item.intervieweeStatus];
 			 			item.intervieweeStartTime = item.intervieweeStartTime.slice(0,16)
@@ -152,7 +151,6 @@
 			 },
 			
 			sendIndex(index) {
-				console.log(index)
 				if (index == 1) {
 					uni.scanCode({
 						success: function(res) {
@@ -185,7 +183,7 @@
 		},
 		onShow() {
 			this.getdate()
-			if(!this.arr.userInfo) return;
+			if(!this.arr.userInfo.id) return;
 			this.getWxVisit()
 		},
 	}

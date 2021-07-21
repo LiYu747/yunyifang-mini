@@ -16,4 +16,6 @@ export const API_BASE_URL = `http://${HOST}`;
 export const TEST_WEBSOCKET_HOST = HOST;
 
 export const INTERVIEWEE_STATUS = {1: '待审核', 2: '已通过', 3: '未通过'}
+
+export const IDCAR_TYPE = {1:' 身份证',2: '护照',3: '驾驶证'}
  

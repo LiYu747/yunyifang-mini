@@ -1,202 +1,198 @@
 <!-- 云易访物业版 -->
 <template>
-	<view class="real-estate">
-		<form @submit="formSubmit" class="form">
-			<!-- 楼层预约 -->
+	<view class="profile">
+		<view class="content">
+			<!-- 修改姓名 -->
 			<view class="row">
-				<view class="title">预约楼层</view>
-				<picker mode="selector" :value="floorIndex" :range="floors" @change="indexChange('floor',$event)"
-					:class="floorIndex == 0 ? 'picker no-choose' : 'picker'">
-					{{floors[floorIndex]}}
+				<text class="title">姓名</text>
+				<input type="text" placeholder="请输入姓名" v-model="formData.name">
+			</view>
+			<!-- 手机号输入 -->
+			<view class="row">
+				<text class="title">手机号</text>
+				<input type="number" :maxlength="11" placeholder="请输入手机号" v-model="formData.phone">
+			</view>
+			<!-- 证件类型 -->
+			<view class="row">
+				<text class="title">证件类型</text>
+				<picker mode="selector" :value="formData.idCardType - 1" :range="types" @change="changeIndex">
+					<input type="text" disabled="true" placeholder="请选择证件类型" v-model="typeText">
 				</picker>
 			</view>
-			<!-- 所属单位 -->
+
+			<!-- 身份证输入 -->
 			<view class="row">
-				<view class="title">所属单位</view>
-				<picker mode="selector" :value="companyIndex" :range="company" @change="indexChange('company',$event)"
-					:class="companyIndex == 0 ? 'picker no-choose' : 'picker'">
-					{{company[companyIndex]}}
-				</picker>
+				<text class="title">证件号</text>
+				<input type="number" :maxlength="18" placeholder="请输入证件号码" v-model="formData.idCardNo">
 			</view>
-			<!-- 受访人姓名 -->
+			<!-- 性别 -->
 			<view class="row">
-				<view class="title">受访人姓名</view>
-				<input type="text" placeholder="请输入受访人姓名">
+				<text class="title">性别</text>
+				<view class="sex">
+					<van-radio-group direction="horizontal" :value="formData.gender + ''" @change="onChange">
+						<van-radio name="1">男</van-radio>
+						<van-radio name="2">女</van-radio>
+					</van-radio-group>
+				</view>
 			</view>
-			<!-- 受访人岗位 -->
+			<!-- 证件类型 -->
 			<view class="row">
-				<view class="title">受访人岗位</view>
-				<input class="input" type="text" placeholder="请输入受访人岗位">
+				<text class="title">车牌号</text>
+				<input type="text" placeholder="请输入车牌号" v-model="formData.carNo">
 			</view>
-			<!-- 受访人手机 -->
+			<!-- 我的单位 -->
 			<view class="row">
-				<view class="title">受访人手机</view>
-				<input type="number" placeholder="请输入受访人手机" :maxlength="11">
+				<text class="title">我的单位</text>
+				<input type="text" placeholder="请输入单位" v-model="formData.companyName">
 			</view>
-			<!-- 短信通知 -->
-			<view class="sms"
-				style="text-align: right;height: 80rpx;box-sizing: border-box;border-bottom: 2rpx solid #eee;line-height: 80rpx;">
-				<label>
-					<checkbox style="transform: scale(0.7);"></checkbox>是否以短信通知对方
-				</label>
+			<!-- 我的岗位 -->
+			<view class="row">
+				<text class="title">我的岗位</text>
+				<input type="text" placeholder="请输入岗位" v-model="formData.companyJob">
+			</view>
+		</view>
+
+		<view class="form">
+			<view class="formTil">
+				拜访信息
 			</view>
 			<!-- 拜访事由 -->
-			<view class="row">
+			<view class="cntnt">
 				<view class="title">拜访事由</view>
-				<picker mode="selector" :value="reasonIndex" :range="reason" @change="indexChange('reason',$event)"
-					:class="reasonIndex == 0 ? 'picker no-choose' : 'picker'">
-					{{reason[reasonIndex]}}
+				<picker mode="selector" :value="reasonIndex" :range="reason" @change="indexChange">
+					<input type="text" v-model="reasonVal" disabled="true" placeholder="请选者拜访事由" />
 				</picker>
 			</view>
 			<!-- 随行人数 -->
-			<view class="row">
+			<view class="cntnt">
 				<view class="title">随行人数</view>
-				<input type="text" placeholder="请输入随行人数">
+				<input type="text" v-model="viNumber" placeholder="请输入随行人数">
 			</view>
-			<!-- 预约时间 -->
-			<view class="row choose-time">
-				<view class="title">预约时间</view>
-				<view class="time">
-					<picker mode="date" :value="currentDate" :start="currentDate" end="2022-12-12" @change="changeDate">
-						<view>{{checkedDate}}</view>
-					</picker>
+			<view v-if="reasonIndex == 0&& reasonVal || reasonIndex == 4&& reasonVal" class="">
+				<!-- 拜访人姓名 -->
+				<view class="cntnt">
+					<view class="title">受访人姓名</view>
+					<input type="text" v-model="realName" placeholder="请输入受访人姓名">
 				</view>
-			</view>
-			<!-- 我的工牌 -->
-				<view class="row uploadimg">
-					<view class="title">我的工牌</view>
-					<view class="content">
-						<image
-							:src="item"
-							class="image" 
-							mode="aspectFit"
-							v-for="(item,index) in workCardUrl" 
-							:key="index" 
-							@click="previewImg(index,workCardUrl)"
-							v-if="workCardUrl.length !== 0"></image>
-						<view @click="chooseImg('workCard')" class="upload iconfont icon-shangchuantupian"></view>
+				<!-- 拜访人电话 -->
+				<view class="cntnt">
+					<view class="title">受访人电话</view>
+					<input type="text" v-model="realPhone" placeholder="请输入受访人电话">
+				</view>
+
+				<!-- 开始时间 -->
+				<view class="cntnt choose-time">
+					<view class="title">开始时间</view>
+					<view class="time">
+						<!-- <picker mode="date" :value="currentDate" :start="currentDate" end="2022-12-12" @change="changeDate"> -->
+						<input type="text" v-model="startTimeVal" @click="addStartTime" disabled="true"
+							placeholder="请选择开始时间" />
+						<!-- </picker> -->
+						<van-popup :show="show" position="bottom" custom-style="height: 40%" @close="show = false">
+							<van-datetime-picker @close=" show = false" @confirm="userConfirm" type="datetime"
+								value="currentDate" :min-date="minDate" :max-date="maxDate"> </van-datetime-picker>
+						</van-popup>
 					</view>
 				</view>
-				<!-- 我的名片 -->
-					<view class="row uploadimg">
-						<view class="title">我的名片</view>
-						<view class="content">
-							<image
-								:src="item"
-								class="image" 
-								mode="aspectFit"
-								v-for="(item,index) in buinessCardUrl" 
-								:key="index" 
-								@click="previewImg(index,buinessCardUrl)"
-								v-if="buinessCardUrl.length !== 0"></image>
-							<view @click="chooseImg('buinessCard')" class="upload iconfont icon-shangchuantupian"></view>
-						</view>
+				<!-- 结束时间 -->
+				<view class="cntnt choose-time">
+					<view class="title">结束时间</view>
+					<view class="time">
+						<input type="text" v-model="endTimeVal" @click="addEndTime" disabled="true"
+							placeholder="请选择开始时间" />
+						<!-- </picker> -->
+						<van-popup :show="show" position="bottom" custom-style="height: 40%" @close="show = false">
+							<van-datetime-picker @close=" show = false" @confirm="userConfirm" type="datetime"
+								value="currentDate" :min-date="minDate" :max-date="maxDate"> </van-datetime-picker>
+						</van-popup>
 					</view>
-					<!-- 我的身份证 -->
-						<view class="row uploadimg">
-							<view class="title">我的身份证</view>
-							<view class="content">
-								<image
-									:src="item"
-									class="image" 
-									mode="aspectFit"
-									v-for="(item,index) in idCardUrl" 
-									:key="index" 
-									@click="previewImg(index,idCardUrl)"
-									v-if="idCardUrl.length !== 0"></image>
-								<view @click="chooseImg('idCard')" class="upload iconfont icon-shangchuantupian"></view>
-							</view>
-						</view>
-			
-			<view class="uni-btn-v">
-				<button form-type="submit" open-type="share" type="primary">保存分享</button>
+				</view>
 			</view>
-		</form>
+		</view>
+		<view class="uni-btn-v">
+			<button form-type="submit" open-type="share" type="primary">保存</button> 
+		</view>
 	</view>
 </template>
 <script>
+	import { IDCAR_TYPE } from "@/utils/constant"
 	export default {
 		data() {
 			return {
-				floors: ['选择楼层', '1楼', '2楼', '3楼'], // 楼层信息
-				floorIndex: 0, // 当前选中楼层索引
-				company: ['选择单位', '四川省成都市利菲普斯科技有限公司',
-					'四川省成都市利菲普斯科技有限公司',
-					'四川省成都市利菲普斯科技有限公司'
-				], // 所属单位信息
-				companyIndex: 0, // 当前选中公司索引
-				reason: ['选择事由','商务沟通', '面试', '探亲', '参观', '政务沟通'], // 拜访事由
+				formData: {
+					id: "", //用户id
+					gender: 1, //性别
+					name: '', // 姓名
+					phone: '', // 手机号
+					idCardNo: '', // 身份证号
+					carNo: '', //车牌号
+					companyName: '', // 公司
+					companyJob: '', // 岗位 
+					idCardType: 1,
+				},
+				types: ['身份证', '护照', '驾驶证'],
+				typeText: '',
+				reason: ['商务沟通', '面试', '探亲', '参观', '政务沟通'], // 拜访事由
 				reasonIndex: 0, // 当前选中拜访事由
-				currentDate: '', // 当前日期
-				checkedDate: '', // 选中日期
-				workCardUrl: [], // 工牌图片预览路径
-				buinessCardUrl: [], // 名片图片预览路径 
-				idCardUrl: [], // 身份证图片预览路径
+				reasonVal: '', //选择原因
+				viNumber: '', //随行人数
+				realName: '', //受访人姓名
+				realPhone: '', //受访人电话
+				show: false,
+				minDate: new Date().getTime(),
+				maxDate: new Date(2030, 10, 1).getTime(),
+				currentDate: new Date().getTime(),
+				isSandE: 1, //判断1是开始时间,2是结束时间
+				startTimeVal: '', //开始时间
+				endTimeVal: "", //结束时间
 			}
 		},
 		onLoad() {
-			this.getCurrentDate()
+			this.getuserInfo(1)
 		},
 		methods: {
-			// picker中的选中改变Index显示对应内容
-			indexChange(type, e) {
-				switch (type) {
-					case 'floor':
-						this.floorIndex = e.detail.value
-						break
-					case 'company':
-						this.companyIndex = e.detail.value
-						break
-					case 'reason':
-						this.reasonIndex = e.detail.value
-						break
-				}
+			//打开时间选择
+			addStartTime() {
+				this.show = !this.show
+				this.isSandE = 1
+			},
+			addEndTime() {
+				this.show = !this.show
+				this.isSandE = 2
+			},
+			//时间确定
+			userConfirm(e) {
 
+				function addZero(m) {
+					return m < 10 ? '0' + m : m;
+				}
+				var time = new Date(e.detail);
+				var y = time.getFullYear()
+				var M = time.getMonth() + 1
+				var d = time.getDate();
+				var h = time.getHours();
+				var m = time.getMinutes()
+				var timer = y + '-' + addZero(M) + '-' + addZero(d) + " " + addZero(h) + ":" + addZero(m)
+				this.show = false
+				if (this.isSandE === 1) {
+					this.startTimeVal = timer
+				}
+				if (this.isSandE === 2) {
+					this.endTimeVal = timer
+				}
 			},
-			// 获取当前时间
-			getCurrentDate() {
-				const date = new Date()
-				let year = date.getFullYear()
-				let month = date.getMonth() + 1
-				let day = date.getDate()
-				month = month < 9 ? `0${month}` : month
-				day = day < 9 ? `0${day}` : day
-				this.currentDate = `${year}-${month}-${day}`
-				this.checkedDate = this.currentDate
+
+			async getuserInfo(id) {
+				const res = await this.$api.getinfo(id);
+				const data = res.data
+				this.formData = res.data
+				this.typeText = IDCAR_TYPE[data.idCardType]
 			},
-			// 选中日期
-			changeDate(e) {
-				console.log(e);
-				this.checkedDate = e.target.value
-			},
-			// 点击选择图片
-			chooseImg(type) {
-				const that = this
-				uni.chooseImage({
-					count: 2,
-					success(res) {
-						switch(type){
-							case 'workCard':
-								that.workCardUrl = res.tempFilePaths
-								break
-							case 'buinessCard':
-								that.buinessCardUrl = res.tempFilePaths
-								break
-							case 'idCard':
-								that.idCardUrl = res.tempFilePaths
-								break
-						}
-					}
-				})
-			},
-			// 点击图片预览
-			previewImg(index,urls) {
-				uni.previewImage({
-					urls,
-					current: index,
-					indicator: 'default',
-					loop: true
-				})
+			// picker中的选中改变Index显示对应内容
+			indexChange(e) {
+				this.reasonIndex = e.detail.value
+				this.reasonVal = this.reason[e.detail.value]
+
 			},
 			formSubmit: function(e) {
 				console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
@@ -211,69 +207,79 @@
 </script>
 
 <style lang="scss" scoped>
-	.real-estate {
+	.profile {
+		width: 100%;
 		box-sizing: border-box;
-		font-size: 28rpx;
+		font-size: 24rpx;
+		color: #333;
 		padding: 20rpx;
 
-		.form {
+		.content {
+			box-sizing: border-box;
+			box-shadow: $boxshadow;
+			border-radius: 10rpx;
 
-			// 每一行表单
 			.row {
-				width: 100%;
-				height: 80rpx;
-				box-sizing: border-box;
 				display: flex;
 				align-items: center;
-				border-bottom: 2rpx solid #eee;
+				box-sizing: border-box;
+				padding: 20rpx;
 
+				border: {
+					top: 2rpx solid #eee;
+					left: 2rpx solid #eee;
+					right: 2rpx solid #eee;
+				}
+
+				;
+
+				// 每一行标题
 				.title {
-					width: 25%;
-					color: #333;
+					display: block;
+					width: 20%;
 					font-weight: bold;
 				}
 
-				.picker {
-					width: 75%;
-					display: flex;
-					align-items: center;
-					box-sizing: border-box;
+				input {
+					width: 400rpx;
 				}
 
-				// picker没有选则内容时候的字体样式
-				.no-choose {
-					color: #aaa;
-				}
-
-				// 修改输入框占位文本样式
 				/deep/ .input-placeholder {
 					color: #aaa;
 				}
 			}
-			// 上传图片行样式
-			.uploadimg{
-				height: auto;
-				padding: 20rpx 0;
-				.content{
-					width: 75%;
-					display: flex;
-					.image{
-						width: 150rpx;
-						height: 150rpx;
-						margin-right: 10rpx;
-					}
-					.upload{
-						width: 150rpx;
-						height: 150rpx;
-						background-color: #aaa;
-						display: flex;
-						align-items: center;
-						justify-content: center;
-						color: #fff;
-						font-size: 40rpx;
-					}
+		}
+
+		.form {
+			margin-top: 30rpx;
+			box-sizing: border-box;
+			box-shadow: $boxshadow;
+			padding: 40rpx 20rpx;
+			border-radius: 10rpx;
+
+			.formTil {
+				font-size: 36rpx;
+				font-weight: bold;
+				color: #000000;
+			}
+
+			.cntnt {
+				margin-top: 30rpx;
+				font-size: 28rpx;
+				font-weight: 400;
+				display: flex;
+				align-items: center;
+				box-sizing: border-box;
+
+				.title {
+					display: block;
+					width: 25%;
 				}
 			}
+		}
+
+		.uni-btn-v {
+			margin: 40rpx 0;
 		}
 	}
 </style>

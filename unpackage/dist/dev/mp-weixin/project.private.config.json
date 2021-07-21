@@ -71,6 +71,18 @@
           "pathName": "pages/profile/profile",
           "query": "id=1",
           "scene": null
+        },
+        {
+          "name": "pages/historicalVisitors/historicalVisitors",
+          "pathName": "pages/historicalVisitors/historicalVisitors",
+          "query": "id=1",
+          "scene": null
+        },
+        {
+          "name": "pages/real-estate/real-estate",
+          "pathName": "pages/real-estate/real-estate",
+          "query": "",
+          "scene": null
         }
       ]
     }

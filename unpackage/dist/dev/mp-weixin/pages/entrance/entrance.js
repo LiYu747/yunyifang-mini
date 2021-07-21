@@ -96,7 +96,7 @@ var components
 try {
   components = {
     itemDesc: function() {
-      return __webpack_require__.e(/*! import() | components/itemDesc/itemDesc */ "components/itemDesc/itemDesc").then(__webpack_require__.bind(null, /*! @/components/itemDesc/itemDesc.vue */ 222))
+      return __webpack_require__.e(/*! import() | components/itemDesc/itemDesc */ "components/itemDesc/itemDesc").then(__webpack_require__.bind(null, /*! @/components/itemDesc/itemDesc.vue */ 221))
     }
   }
 } catch (e) {
@@ -153,7 +153,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 42));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 34));
 
 
 
