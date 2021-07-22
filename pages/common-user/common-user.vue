@@ -76,7 +76,7 @@
 				   console.log(res);
 				const isbn = res.result
 				if (isbn) {
-				  uni.navigateTo({
+				  uni.navigateTo({   
 					  url:'/pages/real-estate/real-estate'
 				  })
 				  }
