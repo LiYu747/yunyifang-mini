@@ -1,6 +1,6 @@
 <!-- 主页 -->
 <template>
-	<view class="page">
+	<view class="pages">
 		<view class="swiper">
 			<swiper class="" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval"
 				:duration="duration">
@@ -40,17 +40,17 @@
 				</view>
 			</view>
 		</view>
-		<visitMsg title="我的今日访客" :msg="arr.myVisit" type=1></visitMsg>
-		<visitMsg title="我的今日拜访" :msg="arr.myVisited" type=2></visitMsg>
+		<visitMsg title="我的今日访客" :msg="arr.myVisited" type=1></visitMsg>
+		<visitMsg title="我的今日拜访" :msg="arr.myVisit" type=2></visitMsg>
 		<view class="slogan flex flex-d al-center">
 			<view class="">
-				www.wearecaller.com
+				cev.liephipps.com
 			</view>
 			<view class="m-t1 m-b1">
-				访云©四川利菲普斯科技有限公司
+				云易访©四川利菲普斯科技有限公司
 			</view>
 			<view class="">
-				©2021-2025 By Sichuan liephipps Technologies Co.，Ltd
+				©2021-2030 By Sichuan liephipps Technologies Co.，Ltd 
 			</view>
 		</view>
 	</view>
@@ -105,39 +105,15 @@
 		font-size: 24rpx;
 	}
 
-	.page {
+	.pages { 
 		background: #F5F5F5;
+		
+	}
+	.swiper {
+			width: 100%;
 	}
 
-	.index {
-		.swiper {
-			image {
-				width: 100%;
-			}
-		}
-
-		.head {
-			box-sizing: border-box;
-			padding: 20rpx;
-			font-size: 24rpx;
-			color: #333;
-		}
-
-		.search {
-			box-sizing: border-box;
-			padding: 0 20rpx;
-
-			input {
-				display: block;
-				border: 2rpx solid #aaa;
-				padding: 8rpx 20rpx;
-			}
-
-			margin-bottom: 40rpx;
-		}
-	}
-
-	.itemImg {
+ 	.itemImg {
 		width: 100%;
 		height: 300rpx;
 	}
@@ -200,7 +176,6 @@
 
 	.slogan {
 		padding: 30rpx 0;
-		;
 		font-size: 24rpx;
 		color: #333;
 	}

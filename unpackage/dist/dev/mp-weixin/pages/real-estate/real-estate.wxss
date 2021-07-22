@@ -64,7 +64,34 @@
 .profile .content .row.data-v-583176be .input-placeholder {
   color: #aaa;
 }
+.profile .reasonBox.data-v-583176be {
+  margin-top: 30rpx;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  padding: 40rpx 20rpx;
+  border-radius: 10rpx;
+}
+.profile .reasonBox .cntnt.data-v-583176be {
+  margin-top: 30rpx;
+  font-size: 28rpx;
+  font-weight: 400;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+.profile .reasonBox .cntnt .title.data-v-583176be {
+  display: block;
+  width: 25%;
+}
 .profile .form.data-v-583176be {
+  width: 100%;
   margin-top: 30rpx;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;

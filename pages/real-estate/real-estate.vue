@@ -51,15 +51,11 @@
 				<input type="text" placeholder="请输入岗位" v-model="formData.companyJob">
 			</view>
 		</view>
-
-		<view class="form">
-			<view class="formTil">
-				拜访信息
-			</view>
+		<view class="reasonBox">
 			<!-- 拜访事由 -->
 			<view class="cntnt">
 				<view class="title">拜访事由</view>
-				<picker mode="selector" :value="reasonIndex" :range="reason" @change="indexChange">
+				<picker mode="selector" :value="reasonIndex" range-key='titel' :range="reason" @change="indexChange">
 					<input type="text" v-model="reasonVal" disabled="true" placeholder="请选者拜访事由" />
 				</picker>
 			</view>
@@ -68,7 +64,12 @@
 				<view class="title">随行人数</view>
 				<input type="text" v-model="viNumber" placeholder="请输入随行人数">
 			</view>
-			<view v-if="reasonIndex == 0&& reasonVal || reasonIndex == 4&& reasonVal" class="">
+		</view>
+		<view v-if="reasonIndex == 1&& reasonVal || reasonIndex == 2&& reasonVal" class="form">
+			<view class="formTil">
+				拜访信息
+			</view>
+			<view class="">
 				<!-- 拜访人姓名 -->
 				<view class="cntnt">
 					<view class="title">受访人姓名</view>
@@ -89,7 +90,7 @@
 							placeholder="请选择开始时间" />
 						<!-- </picker> -->
 						<van-popup :show="show" position="bottom" custom-style="height: 40%" @close="show = false">
-							<van-datetime-picker @close=" show = false" @confirm="userConfirm" type="datetime"
+							<van-datetime-picker @cancel="show = false" @confirm="userConfirm" type="datetime"
 								value="currentDate" :min-date="minDate" :max-date="maxDate"> </van-datetime-picker>
 						</van-popup>
 					</view>
@@ -99,23 +100,30 @@
 					<view class="title">结束时间</view>
 					<view class="time">
 						<input type="text" v-model="endTimeVal" @click="addEndTime" disabled="true"
-							placeholder="请选择开始时间" />
-						<!-- </picker> -->
-						<van-popup :show="show" position="bottom" custom-style="height: 40%" @close="show = false">
-							<van-datetime-picker @close=" show = false" @confirm="userConfirm" type="datetime"
-								value="currentDate" :min-date="minDate" :max-date="maxDate"> </van-datetime-picker>
+							placeholder="请选择结束时间" />
+						<van-popup :show="endshow" position="bottom" custom-style="height: 40%"
+							@close="endshow = false">
+							<van-datetime-picker @cancel="endshow = false" @confirm="endConfirm" type="datetime"
+								value="currentDate" :min-date="endminDate" :max-date="endmaxDate">
+							</van-datetime-picker>
 						</van-popup>
 					</view>
 				</view>
 			</view>
 		</view>
 		<view class="uni-btn-v">
-			<button form-type="submit" open-type="share" type="primary">保存</button> 
+			<button @click="submit" type="primary">保存</button>
 		</view>
 	</view>
 </template>
 <script>
-	import { IDCAR_TYPE } from "@/utils/constant"
+	import {
+		IDCAR_TYPE
+	} from "@/utils/constant"
+	import {
+		Reason_TYPES
+	} from '@/utils/constant'
+	import storage from '@/utils/storage'
 	export default {
 		data() {
 			return {
@@ -132,8 +140,9 @@
 				},
 				types: ['身份证', '护照', '驾驶证'],
 				typeText: '',
-				reason: ['商务沟通', '面试', '探亲', '参观', '政务沟通'], // 拜访事由
+				reason: Reason_TYPES, // 拜访事由
 				reasonIndex: 0, // 当前选中拜访事由
+				reasonId: '',
 				reasonVal: '', //选择原因
 				viNumber: '', //随行人数
 				realName: '', //受访人姓名
@@ -142,27 +151,67 @@
 				minDate: new Date().getTime(),
 				maxDate: new Date(2030, 10, 1).getTime(),
 				currentDate: new Date().getTime(),
-				isSandE: 1, //判断1是开始时间,2是结束时间
 				startTimeVal: '', //开始时间
 				endTimeVal: "", //结束时间
+				endshow: false, //结束时间打开选择
+				endminDate: '',
+				endmaxDate: '',
 			}
 		},
-		onLoad() {
-			this.getuserInfo(1)
-		},
+	
 		methods: {
+			//保存
+			async submit() {
+				let res = await this.$api.addWxvisit({
+					tid: this.formData.id,
+					name: this.formData.name,
+					gender: this.formData.gender,
+					phone: this.formData.phone,
+					idCardType: this.formData.idCardType,
+					idCardNo: this.formData.idCardNo,
+					companyName: this.formData.companyName,
+					companyJob: this.formData.companyJob,
+					carNo: this.formData.carNo,
+					intervieweeName: this.realName,
+					intervieweePhone: this.realPhone,
+					intervieweeStartTime: this.startTimeVal,
+					intervieweeEndTime: this.endTimeVal,
+					reasonType: this.reasonId,
+					followAmount: this.viNumber,
+					intervieweeCompanyCode: 'XXXZ', //二维码获得的数据
+				})
+				if (res.statusCode == 200) {
+					uni.showToast({
+						icon: 'none',
+						title: "保存成功",
+						default: 3000
+					})
+				}
+			},
+			changeIndex(e) {
+				this.formData.idCardType = parseInt(e.detail.value) + 1
+				this.typeText = this.types[e.detail.value]
+			},
+			onChange(e) {
+				this.formData.gender = e.detail
+			},
 			//打开时间选择
 			addStartTime() {
 				this.show = !this.show
-				this.isSandE = 1
 			},
 			addEndTime() {
-				this.show = !this.show
-				this.isSandE = 2
+				if (!this.startTimeVal) {
+					uni.showToast({
+						icon: "none",
+						title: "请先选择开始时间",
+						default: 3000
+					})
+					return;
+				}
+				this.endshow = !this.endshow
 			},
-			//时间确定
+			//开始时间确定
 			userConfirm(e) {
-
 				function addZero(m) {
 					return m < 10 ? '0' + m : m;
 				}
@@ -172,14 +221,38 @@
 				var d = time.getDate();
 				var h = time.getHours();
 				var m = time.getMinutes()
-				var timer = y + '-' + addZero(M) + '-' + addZero(d) + " " + addZero(h) + ":" + addZero(m)
+				var timer = y + '-' + addZero(M) + '-' + addZero(d) + " " + addZero(h) + ":" + addZero(m) + ':00'
 				this.show = false
-				if (this.isSandE === 1) {
-					this.startTimeVal = timer
+				this.startTimeVal = timer
+				this.endmaxDate = new Date(y, addZero(M - 1), addZero(d), 23, 59).getTime()
+				this.endminDate = new Date(y, addZero(M - 1), addZero(d), addZero(h), addZero(m)).getTime()
+
+			},
+
+			// 结束时间确定
+			endConfirm(e) {
+				function addZero(m) {
+					return m < 10 ? '0' + m : m;
 				}
-				if (this.isSandE === 2) {
-					this.endTimeVal = timer
+				var time = new Date(e.detail);
+				var y = time.getFullYear()
+				var M = time.getMonth() + 1
+				var d = time.getDate();
+				var h = time.getHours();
+				var m = time.getMinutes()
+				var timer = y + '-' + addZero(M) + '-' + addZero(d) + " " + addZero(h) + ":" + addZero(m) + ':00'
+				let tampLogin = new Date(timer.replace(/-/g, '/')).getTime() - new Date(this.startTimeVal.replace(/-/g,
+					'/')).getTime();
+				if (tampLogin < 1 && this.startTimeVal) {
+					uni.showToast({
+						icon: 'none',
+						title: '必须大于开始时间',
+						duration: 3000
+					})
+					return;
 				}
+				this.endTimeVal = timer
+				this.endshow = false
 			},
 
 			async getuserInfo(id) {
@@ -191,18 +264,15 @@
 			// picker中的选中改变Index显示对应内容
 			indexChange(e) {
 				this.reasonIndex = e.detail.value
-				this.reasonVal = this.reason[e.detail.value]
-
+				this.reasonVal = this.reason[e.detail.value].titel
+				this.reasonId = this.reason[e.detail.value].id
 			},
-			formSubmit: function(e) {
-				console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail.value))
-				var formdata = e.detail.value
-				uni.showModal({
-					content: '表单数据内容：' + JSON.stringify(formdata),
-					showCancel: false
-				});
-			}
-		}
+		},
+        onLoad() {
+        	if(!storage.getUserInfo()) return;
+            let userinfo =   storage.getUserInfo()
+        	this.getuserInfo(userinfo.id)
+        },
 	}
 </script>
 
@@ -250,7 +320,30 @@
 			}
 		}
 
+		.reasonBox {
+			margin-top: 30rpx;
+			box-sizing: border-box;
+			box-shadow: $boxshadow;
+			padding: 40rpx 20rpx;
+			border-radius: 10rpx;
+
+			.cntnt {
+				margin-top: 30rpx;
+				font-size: 28rpx;
+				font-weight: 400;
+				display: flex;
+				align-items: center;
+				box-sizing: border-box;
+
+				.title {
+					display: block;
+					width: 25%;
+				}
+			}
+		}
+
 		.form {
+			width: 100%;
 			margin-top: 30rpx;
 			box-sizing: border-box;
 			box-shadow: $boxshadow;

@@ -1,5 +1,6 @@
 {
   "usingComponents": {
+    "user-empower": "/components/user-empower/user-empower",
     "my-visit": "/components/my-visit/my-visit",
     "user-info": "/components/user-info/user-info",
     "tabbar": "/components/tabbar/tabbar"

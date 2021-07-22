@@ -93,29 +93,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components
-try {
-  components = {
-    itemDesc: function() {
-      return __webpack_require__.e(/*! import() | components/itemDesc/itemDesc */ "components/itemDesc/itemDesc").then(__webpack_require__.bind(null, /*! @/components/itemDesc/itemDesc.vue */ 221))
-    }
-  }
-} catch (e) {
-  if (
-    e.message.indexOf("Cannot find module") !== -1 &&
-    e.message.indexOf(".vue") !== -1
-  ) {
-    console.error(e.message)
-    console.error("1. 排查组件名称拼写是否正确")
-    console.error(
-      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
-    )
-    console.error(
-      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
-    )
-  } else {
-    throw e
-  }
-}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -181,15 +158,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
 var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request.js */ 53));
 var _family = _interopRequireDefault(__webpack_require__(/*! @/apis/family.js */ 11));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}
-
 // const app = getApp();
-var _default =
-{
+var _default = {
   data: function data() {
     return {
       isAgree: false, // 是否同意注册协议
@@ -197,8 +169,9 @@ var _default =
       openId: '',
       nickName: null,
       avatarUrl: null,
-      userInfo: {} };
-
+      userInfo: {},
+      isEmpower: false //是否有权限
+    };
   },
   onLoad: function onLoad() {var _this2 = this;
     var _this = this;
@@ -210,21 +183,18 @@ var _default =
         }
       });
       _this2.$api.getUserInfos(code).then(function (res) {
-        _this.openId = res.openId;
-        if (res.id) {
-          console.log("跳轉頁面");
-          uni.redirectTo({
-            url: "/pages/common-user/common-user" });
-
+        _this.openId = res.data.openId;
+        if (!res.data.id) {
+          _this2.isEmpower = true;
+          return;
         }
+        console.log("跳轉頁面");
+        uni.redirectTo({
+          url: "/pages/common-user/common-user" });
+
+
       });
     });
-    // 判断是否同意注册协议
-    // console.log(1111111);
-    // this.isAgree = getApp().globalData.isAgree;
-    // const res = await FamilyApis.login({username: 'test', password: 'test'});
-    // console.log(1111111222222222);
-    // console.log(res);
   },
   methods: {
     // 授权登录
@@ -311,23 +281,6 @@ var _default =
                       url: '/pages/profile/profile' });
 
                   } });case 5:case "end":return _context2.stop();}}}, _callee2);}))();
-
-    },
-    // 点击企业注册跳转企业注册页面
-    toCompanyRegister: function toCompanyRegister() {
-      uni.navigateTo({
-        url: "/pages/company-register/company-register" });
-
-    },
-    // 是否同意注册协议
-    changeIsAgree: function changeIsAgree() {
-      this.isAgree = !this.isAgree;
-      getApp().globalData.isAgree = this.isAgree;
-    },
-    //点击阅读注册协议跳转协议页面
-    toAgreement: function toAgreement() {
-      uni.navigateTo({
-        url: "/pages/agreement/agreement" });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

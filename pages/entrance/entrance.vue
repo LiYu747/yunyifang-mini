@@ -1,39 +1,34 @@
 <!-- 小程序入口页面，授权登录 -->
 <template>
 	<view class="page-login">
-		<view>
-			<view class='login-header'>
-				<image class="logo" mode="aspectFit" src="../../static/logo.png"></image>
+		<view v-if="isEmpower == true" class="conbox flex flex-d al-center">
+			<view class="conTil">
+				温馨提示
 			</view>
-			<view class='content'>
-				<view class="notice">申请获取以下权限:</view>
-				<view class="notice-content">获得你的公开信息(昵称、头像、地区等)</view>
+			<view class="conTil m-t2">
+				应国家法律要求,需获取您的微信用户信息
 			</view>
-
-			<view class="login-box">
-				<button class='login-btn' type='primary' @click="bindGetUserInfo"> 授权登录
-				</button>
+			<view class="conTil">
+				用于实名认证及会员服务
 			</view>
-			<view class="register">
-				<button :class="['register-btn',{agree:isAgree?'agree':''}]" :disabled="!isAgree"
-					@click="toCompanyRegister">企业注册</button>
-				<view class="agreement">
-					<checkbox @click="changeIsAgree" :checked="isAgree" style="transform: scale(0.6);"></checkbox>
-					<text class="read-agreement" @click="toAgreement">阅读注册协议</text>
+			<view class="conTxt m-t2">
+				我们将严格保密绝不外泄您的隐私信息,更不会发送垃圾信息对您造成骚扰，若您的手机号未注册,将为您直接注册注册视为同意《云易访用户协议》和《隐私协议》
+			</view>
+			<view class="flex ju-center m-t3">
+				<view class="btn flex al-center ju-center">
+					再想想
+				</view>
+				<view class="gobtn flex al-center ju-center">
+					去授权
 				</view>
 			</view>
-		</view>
-		<view class="desc" style="margin-top: 150rpx;">
-			<itemDesc />
 		</view>
 	</view>
 </template>
 <script>
 	import request from '@/utils/request.js';
 	import api from '@/apis/family.js';
-
 	// const app = getApp();
-
 	export default {
 		data() {
 			return {
@@ -42,7 +37,8 @@
 				openId: '',
 				nickName: null,
 				avatarUrl: null,
-				userInfo: {}
+				userInfo: {},
+				isEmpower: false, //是否有权限
 			};
 		},
 		onLoad() {
@@ -55,21 +51,18 @@
 					}
 				})
 				this.$api.getUserInfos(code).then(res => {
-					_this.openId = res.openId
-					if (res.id) {
-						console.log("跳轉頁面")
-						uni.redirectTo({
-							url: `/pages/common-user/common-user`,
-						})
+					_this.openId = res.data.openId
+					if (!res.data.id) {
+						this.isEmpower = true
+						return;
 					}
+					console.log("跳轉頁面")
+					uni.redirectTo({
+						url: `/pages/common-user/common-user`,
+					})
+
 				})
 			})
-			// 判断是否同意注册协议
-			// console.log(1111111);
-			// this.isAgree = getApp().globalData.isAgree;
-			// const res = await FamilyApis.login({username: 'test', password: 'test'});
-			// console.log(1111111222222222);
-			// console.log(res);
 		},
 		methods: {
 			// 授权登录
@@ -77,7 +70,7 @@
 				let _this = this;
 				try {
 					// 授权拿取用户信息
-					let profile = await this.getUserProfile()   
+					let profile = await this.getUserProfile()
 					console.log(profile, "-----");
 					this.userInfo = profile.userInfo
 					this.$api.addThird({
@@ -89,13 +82,13 @@
 						country: profile.userInfo.country,
 						province: profile.userInfo.province
 					}).then(res => {
-						if(res.statusCode==200){
+						if (res.statusCode == 200) {
 							uni.redirectTo({
-								url:"/pages/common-user/common-user"
+								url: "/pages/common-user/common-user"
 							})
-						}else{
+						} else {
 							uni.showModal({
-								title:res.error
+								title: res.error
 							})
 						}
 					})
@@ -158,96 +151,55 @@
 					}
 				})
 			},
-			// 点击企业注册跳转企业注册页面
-			toCompanyRegister() {
-				uni.navigateTo({
-					url: "/pages/company-register/company-register"
-				})
-			},
-			// 是否同意注册协议
-			changeIsAgree() {
-				this.isAgree = !this.isAgree
-				getApp().globalData.isAgree = this.isAgree
-			},
-			//点击阅读注册协议跳转协议页面
-			toAgreement() {
-				uni.navigateTo({
-					url: "/pages/agreement/agreement"
-				})
-			},
 		}
 	}
 </script>
 <style lang="scss" scoped>
 	.page-login {
-		color: #333;
+		width: 100%;
+		height: 100vh;
+		position: fixed;
+		background: rgba(0, 0, 0, 0.3);
+		box-sizing: border-box;
+		padding: 0 30rpx;
+		display: flex;
+		align-items: center;
+		font-size: 28rpx;
 
-		.login-header {
-			.logo {
-				display: block;
-				width: 300rpx;
-				height: 300rpx;
-				margin: 50rpx auto;
-			}
-		}
-
-		.content {
-			box-sizing: border-box;
-			padding: 0 20rpx;
-			margin-bottom: 60rpx;
-
-			.notice {
-				font-size: 32rpx;
-				margin-bottom: 10rpx;
-			}
-
-			.notice-content {
-				font-size: 28rpx;
-			}
-		}
-
-		.login-box {
+		.conbox {
 			width: 100%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-
-			.login-btn {
-				font-size: 36rpx;
-				width: 60%;
-				height: 80rpx;
-				line-height: 80rpx;
-			}
+			padding: 50rpx 20rpx;
+			background: #fff;
+			border-radius: 20rpx;
 		}
 
-		// 企业注册
-		.register {
-			margin-top: 40rpx;
+		.conTil {
+			font-weight: bold;
+		}
 
-			.register-btn {
-				margin-bottom: 20rpx;
-				font-size: 36rpx;
-				width: 60%;
-				height: 80rpx;
-				line-height: 80rpx;
-			}
+		.conTxt {
+			color: #666;
+			font-size: 24rpx;
+			width: 480rpx;
+			padding: 0 10rpx;
+			line-height: 40rpx;
+		}
 
-			.agree {
-				border: 2rpx solid $comcolor;
-				color: $comcolor;
-				background-color: #fff;
-			}
+		.btn {
+			width: 250rpx;
+			height: 60rpx;
+			border-radius: 30rpx;
+			border: 1px solid rgb(31, 81, 143);
+			color: rgb(31, 81, 143);
+			margin-right: 50rpx;
+		}
 
-			.agreement {
-				font-size: 28rpx;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-
-				.read-agreement {
-					color: $bgcolor;
-				}
-			}
+		.gobtn {
+			width: 250rpx;
+			height: 60rpx;
+			border-radius: 30rpx;
+			background: rgb(31, 81, 143);
+			color: #FFF
 		}
 	}
 </style>

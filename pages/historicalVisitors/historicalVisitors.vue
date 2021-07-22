@@ -1,7 +1,7 @@
 <template>
 	<view>
-		<visitMsg title="我的历史访客" :msg="arr.myVisit" type=1></visitMsg>
-		<visitMsg title="我的历史拜访" :msg="arr.myVisited" type=2></visitMsg>
+		<visitMsg title="我的历史访客" :msg="arr.myVisited" type=1></visitMsg>
+		<visitMsg title="我的历史拜访" :msg="arr.myVisit" type=2></visitMsg>
 	</view>
 </template>
 
@@ -10,6 +10,7 @@
 	export default {
 		data() {
 			return {
+				id:'',
 				arr:{}
 			}
 		},
@@ -29,11 +30,16 @@
 					item.visitTime = item.intervieweeStartTime + ' - ' + item.intervieweeEndTime
 				})
 				this.arr = res.data
+				this.id = id
 			}
 		},
 		onLoad(val) {
 			this.getData(val.id)
-		}
+		},
+		onShow() {
+			if(!this.id) return;
+			this.getData(this.id)
+		},
 	}
 </script>
 

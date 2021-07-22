@@ -33,14 +33,14 @@ export const setUser = function(id,user) {
 }
 // 获取用户信息
 export const getUser=function(id) {
-	return axios.get(`/api/wx/wxuser?id=${id}`)
+	return axios.get(`/api/wx/wxuser/${id}`)
 }
 // 新增访客记录
 export const addWxvisit=function(obj) {
 	return axios.post(`/api/wx/wxvisit`, obj)
 }
 // 通过code查询用户信息
-export const getUserInfos=function(code) {
+export const getUserInfos=function(code) { 
 	return axios.get(`/api/wx/third/userinfo?code=${code}`)
 }
 // 新增用户

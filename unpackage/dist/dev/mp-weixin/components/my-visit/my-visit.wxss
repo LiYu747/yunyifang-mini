@@ -30,29 +30,11 @@
 .fz-14.data-v-be719d78 {
   font-size: 24rpx;
 }
-.page.data-v-be719d78 {
+.pages.data-v-be719d78 {
   background: #F5F5F5;
 }
-.index .swiper image.data-v-be719d78 {
+.swiper.data-v-be719d78 {
   width: 100%;
-}
-.index .head.data-v-be719d78 {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 20rpx;
-  font-size: 24rpx;
-  color: #333;
-}
-.index .search.data-v-be719d78 {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 0 20rpx;
-  margin-bottom: 40rpx;
-}
-.index .search input.data-v-be719d78 {
-  display: block;
-  border: 2rpx solid #aaa;
-  padding: 8rpx 20rpx;
 }
 .itemImg.data-v-be719d78 {
   width: 100%;

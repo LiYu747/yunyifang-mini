@@ -5,7 +5,7 @@
 			roleType: '', // 选定的角色类型
 		},
 		onLaunch: function(e) {
-			console.log(e);
+			console.log('进入',e);
 			// 判断用户是通过个人会话分享预约进入的小程序
 			if(e.path.indexOf('subscribe') !== -1 && e.scene == 1007){
 				console.log('我是通过分享预约进来的');

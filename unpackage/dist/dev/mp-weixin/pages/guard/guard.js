@@ -96,19 +96,19 @@ var components
 try {
   components = {
     myVisit: function() {
-      return Promise.all(/*! import() | components/my-visit/my-visit */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/my-visit/my-visit")]).then(__webpack_require__.bind(null, /*! @/components/my-visit/my-visit.vue */ 192))
+      return Promise.all(/*! import() | components/my-visit/my-visit */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/my-visit/my-visit")]).then(__webpack_require__.bind(null, /*! @/components/my-visit/my-visit.vue */ 198))
     },
     visitMe: function() {
-      return __webpack_require__.e(/*! import() | components/visit-me/visit-me */ "components/visit-me/visit-me").then(__webpack_require__.bind(null, /*! @/components/visit-me/visit-me.vue */ 228))
+      return __webpack_require__.e(/*! import() | components/visit-me/visit-me */ "components/visit-me/visit-me").then(__webpack_require__.bind(null, /*! @/components/visit-me/visit-me.vue */ 240))
     },
     guardOnly: function() {
-      return __webpack_require__.e(/*! import() | components/guard-only/guard-only */ "components/guard-only/guard-only").then(__webpack_require__.bind(null, /*! @/components/guard-only/guard-only.vue */ 235))
+      return __webpack_require__.e(/*! import() | components/guard-only/guard-only */ "components/guard-only/guard-only").then(__webpack_require__.bind(null, /*! @/components/guard-only/guard-only.vue */ 247))
     },
     userInfo: function() {
-      return __webpack_require__.e(/*! import() | components/user-info/user-info */ "components/user-info/user-info").then(__webpack_require__.bind(null, /*! @/components/user-info/user-info.vue */ 200))
+      return __webpack_require__.e(/*! import() | components/user-info/user-info */ "components/user-info/user-info").then(__webpack_require__.bind(null, /*! @/components/user-info/user-info.vue */ 206))
     },
     tabbar: function() {
-      return Promise.all(/*! import() | components/tabbar/tabbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/tabbar/tabbar")]).then(__webpack_require__.bind(null, /*! @/components/tabbar/tabbar.vue */ 207))
+      return Promise.all(/*! import() | components/tabbar/tabbar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/tabbar/tabbar")]).then(__webpack_require__.bind(null, /*! @/components/tabbar/tabbar.vue */ 213))
     }
   }
 } catch (e) {
